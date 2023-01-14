@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_fate/presentation/resources/colors_manager.dart';
 import 'package:my_fate/presentation/resources/text_styles_manager.dart';
 
-ThemeData getApplicationTheme() {
+ThemeData getApplicationTheme(BuildContext context) {
+  String? familyFont =
+      GoogleFonts.kanit().fontFamily; // secularOne, pay-toneOne are great fonts
+
   return ThemeData(
     // main colors of the app
     // primaryColor: AppColors.primaryBlue,
@@ -42,7 +46,8 @@ ThemeData getApplicationTheme() {
           statusBarIconBrightness:
               Brightness.dark, // For Android(M and greater): (dark icons)
         ),
-        titleTextStyle: const AppTextStyles().headingH2),
+        titleTextStyle:
+            const AppTextStyles().headingH2.copyWith(fontFamily: familyFont)),
     // Button theme
     // buttonTheme: const ButtonThemeData(
     //   shape: StadiumBorder(),
@@ -62,22 +67,32 @@ ThemeData getApplicationTheme() {
     //             borderRadius: BorderRadius.circular(AppSize.s12)))),
 
     // default font family
-    fontFamily: GoogleFonts.poppins().fontFamily,
+    fontFamily: familyFont,
 
     // Text theme
     textTheme: TextTheme(
-        headline1: const AppTextStyles().headingH1,
-        headline2: const AppTextStyles().headingH2,
-        headline3: const AppTextStyles().headingH3,
-        headline4: const AppTextStyles().headingH4,
-        subtitle1: const AppTextStyles().linkSmall,
-        subtitle2: const AppTextStyles().linkSmall,
-        bodyText2: const AppTextStyles().bodyTextMediumRegular,
+        headline1:
+            const AppTextStyles().headingH1.copyWith(color: AppColors.kBlack),
+        headline2:
+            const AppTextStyles().headingH2.copyWith(color: AppColors.kBlack),
+        headline3:
+            const AppTextStyles().headingH3.copyWith(color: AppColors.kBlack),
+        headline4:
+            const AppTextStyles().headingH4.copyWith(color: AppColors.kBlack),
+        subtitle1:
+            const AppTextStyles().linkSmall.copyWith(color: AppColors.kBlack),
+        subtitle2:
+            const AppTextStyles().linkSmall.copyWith(color: AppColors.kBlack),
+        bodyText2: const AppTextStyles()
+            .bodyTextMediumRegular
+            .copyWith(color: AppColors.kBlack),
         // it affects the style of calender number
         caption: const AppTextStyles()
             .captionNormalRegular
-            .copyWith(fontWeight: FontWeight.w900),
-        bodyText1: const AppTextStyles().bodyTextNormalRegular),
+            .copyWith(fontWeight: FontWeight.w900, color: AppColors.kBlack),
+        bodyText1: const AppTextStyles()
+            .bodyTextNormalRegular
+            .copyWith(color: AppColors.kBlack)),
     // input decoration theme (text form field)
 
     // inputDecorationTheme: InputDecorationTheme(

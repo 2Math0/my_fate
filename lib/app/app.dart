@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Fate',
       debugShowCheckedModeBanner: false,
-      theme: getApplicationTheme(),
+      theme: getApplicationTheme(context),
       home: const HomePage(),
     );
   }
