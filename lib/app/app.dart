@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_fate/presentation/view/home_page.dart';
+
+import '../presentation/resources/theme_manager.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -9,10 +12,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Fate',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const Center(child: Text('new app')),
+      theme: getApplicationTheme(),
+      home: const HomePage(),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_fate/presentation/resources/text_styles_manager.dart';
-import 'package:my_fate/presentation/resources/values_manager.dart';
 
 ThemeData getApplicationTheme() {
   return ThemeData(
@@ -34,10 +34,15 @@ ThemeData getApplicationTheme() {
     //     elevation: AppSize.s4),
     // App bar theme
     appBarTheme: AppBarTheme(
-        centerTitle: true,
-        color: Colors.white,
-        elevation: AppElevation.e3,
-        titleTextStyle: const AppTextStyles().headingH4),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarBrightness: Brightness.dark, // For iOS: (dark icons)
+          statusBarIconBrightness:
+              Brightness.dark, // For Android(M and greater): (dark icons)
+        ),
+        titleTextStyle: const AppTextStyles().headingH2),
     // Button theme
     // buttonTheme: const ButtonThemeData(
     //   shape: StadiumBorder(),
