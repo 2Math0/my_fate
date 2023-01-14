@@ -3,22 +3,15 @@ import 'package:flutter/material.dart';
 class AppColors {
   const AppColors();
 
-  //Primary Colors
-  static const Color primaryBlue = Color(0xff40bfff);
-  static const Color primaryBlue24Opacity = Color(0x3D40bfff);
-  static const Color primaryRed = Color(0xfffb7181);
-  static const Color primaryYellow = Color(0xffffc833);
-  static const Color primaryGreen = Color(0xff53d1b6);
-  static const Color primaryPurple = Color(0xff5c61f4);
+  static const Color kYellowLight = Color(0xFFFFF7EC);
+  static const Color kYellow = Color(0xFFFAF0DA);
+  static const Color kYellowDark = Color(0xFFEBBB7F);
 
-  //Neutral Colors
-  static const Color neutralDark = Color(0xff223263);
-  static const Color neutralGrey = Color(0xff9098b1);
-  static const Color neutralLight = Color(0xffebf0ff);
+  static const Color kRedLight = Color(0xFFFCF0F0);
+  static const Color kRed = Color(0xFFFBE4E6);
+  static const Color kRedDark = Color(0xFFF08A8E);
 
-  //Background
-  static const Color backgroundWhite = Color(0xffffffff);
-
-  //transparent
-  static const Color transparent = Color(0x00000000);
+  static const Color kBlueLight = Color(0xFFEDF4FE);
+  static const Color kBlue = Color(0xFFE1EDFC);
+  static const Color kBlueDark = Color(0xFFC0D3F8);
 }
