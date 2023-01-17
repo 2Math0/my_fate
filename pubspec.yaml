@@ -39,6 +39,7 @@ dependencies:
   google_fonts: ^3.0.1
   flutter_svg: ^1.1.6
   typewritertext: ^1.8.0
+  dotted_border: ^2.0.0+3
 
 dev_dependencies:
   flutter_test:

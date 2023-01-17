@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,6 +17,14 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    double wrapItemsSize() {
+      /// Every Item get half of the screen
+      /// app padding horizontally on parent by 16
+      /// app padding in space between items by 16
+      /// divided by two as width is divided also
+      return (size.width / 2) - AppPadding.p16 - AppPadding.p8;
+    }
+
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
@@ -64,40 +73,85 @@ class HomePage extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline3,
                   ),
                   const SizedBox(height: AppMargin.m16),
-                  Wrap(
-                    spacing: AppPadding.p16,
-                    runSpacing: AppPadding.p16,
-                    runAlignment: WrapAlignment.spaceBetween,
-                    alignment: WrapAlignment.spaceBetween,
-                    children: [
-                      TaskTypeItem(
-                          name: AppStrings.personal,
-                          onTap: () {},
-                          color: AppColors.kYellow,
-                          darkColor: AppColors.kYellowDark,
-                          lightColor: AppColors.kYellowLight,
-                          svgIcon: AppIcons.person,
-                          leftNum: 12,
-                          doneNum: 1),
-                      TaskTypeItem(
-                          name: AppStrings.work,
-                          onTap: () {},
-                          color: AppColors.kRed,
-                          darkColor: AppColors.kRedDark,
-                          lightColor: AppColors.kRedLight,
-                          svgIcon: AppIcons.bag,
-                          leftNum: 12,
-                          doneNum: 1),
-                      TaskTypeItem(
-                          name: AppStrings.health,
-                          onTap: () {},
-                          color: AppColors.kBlue,
-                          darkColor: AppColors.kBlueDark,
-                          lightColor: AppColors.kBlueLight,
-                          svgIcon: AppIcons.heart,
-                          leftNum: 12,
-                          doneNum: 0),
-                    ],
+                  IntrinsicWidth(
+                    child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: AppPadding.p16,
+                      runSpacing: AppPadding.p16,
+                      runAlignment: WrapAlignment.spaceBetween,
+                      alignment: WrapAlignment.spaceBetween,
+                      children: [
+                        TaskTypeItem(
+                            size: wrapItemsSize(),
+                            name: AppStrings.personal,
+                            onTap: () {},
+                            color: AppColors.kYellow,
+                            darkColor: AppColors.kYellowDark,
+                            lightColor: AppColors.kYellowLight,
+                            svgIcon: AppIcons.person,
+                            leftNum: 12,
+                            doneNum: 1),
+                        TaskTypeItem(
+                            size: wrapItemsSize(),
+                            name: AppStrings.work,
+                            onTap: () {},
+                            color: AppColors.kRed,
+                            darkColor: AppColors.kRedDark,
+                            lightColor: AppColors.kRedLight,
+                            svgIcon: AppIcons.bag,
+                            leftNum: 12,
+                            doneNum: 1),
+                        TaskTypeItem(
+                            size: wrapItemsSize(),
+                            name: AppStrings.health,
+                            onTap: () {},
+                            color: AppColors.kBlue,
+                            darkColor: AppColors.kBlueDark,
+                            lightColor: AppColors.kBlueLight,
+                            svgIcon: AppIcons.heart,
+                            leftNum: 12,
+                            doneNum: 0),
+                        InkWell(
+                          highlightColor: Colors.transparent,
+                          splashColor: AppColors.inactiveGrey,
+                          radius: AppCircularRadius.cr66,
+                          onTap: () =>
+                              ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                  "Adding Categories will be added in next update",
+                                  style: const AppTextStyles()
+                                      .captionLargeRegular
+                                      .copyWith(color: AppColors.kWhite)),
+                              behavior: SnackBarBehavior.fixed,
+                              elevation: 0,
+                              backgroundColor: AppColors.kBlack,
+                            ),
+                          ),
+                          child: DottedBorder(
+                            borderType: BorderType.RRect,
+                            color: AppColors.inactiveGrey,
+                            radius:
+                                const Radius.circular(AppCircularRadius.cr24),
+                            dashPattern: const [8, 12, 8, 12],
+                            strokeWidth: 2,
+                            strokeCap: StrokeCap.round,
+                            // strokeCap: StrokeCap.round,
+                            child: SizedBox(
+                              /// minus four as strokeWidth take space from left and right, up and bottom
+                              height: wrapItemsSize() - 4,
+                              width: wrapItemsSize() - 4,
+                              child: Center(
+                                child: Text(
+                                  "+ ${AppStrings.add}",
+                                  style: const AppTextStyles().headingH3,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

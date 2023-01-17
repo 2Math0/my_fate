@@ -16,6 +16,7 @@ class TaskTypeItem extends StatelessWidget {
   final int leftNum;
   final int doneNum;
   final VoidCallback onTap;
+  final double size;
 
   const TaskTypeItem({
     Key? key,
@@ -27,6 +28,7 @@ class TaskTypeItem extends StatelessWidget {
     required this.leftNum,
     required this.doneNum,
     required this.onTap,
+    required this.size,
   }) : super(key: key);
 
   @override
@@ -36,6 +38,8 @@ class TaskTypeItem extends StatelessWidget {
       highlightColor: lightColor,
       splashColor: lightColor,
       child: Container(
+        height: size,
+        width: size,
         decoration: AppDecoration.defaultBoxDecoration(lightColor),
         child: Padding(
           padding: const EdgeInsets.all(AppPadding.p12),
