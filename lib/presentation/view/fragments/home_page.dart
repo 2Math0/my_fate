@@ -32,6 +32,7 @@ class HomePage extends StatelessWidget {
                   shrinkWrap: true,
                   children: [
                     TaskTypeItem(
+                        name: AppStrings.personal,
                         onTap: () {},
                         color: AppColors.kYellow,
                         darkColor: AppColors.kYellowDark,
@@ -40,6 +41,7 @@ class HomePage extends StatelessWidget {
                         leftNum: 12,
                         doneNum: 1),
                     TaskTypeItem(
+                        name: AppStrings.work,
                         onTap: () {},
                         color: AppColors.kRed,
                         darkColor: AppColors.kRedDark,
@@ -48,6 +50,7 @@ class HomePage extends StatelessWidget {
                         leftNum: 12,
                         doneNum: 1),
                     TaskTypeItem(
+                        name: AppStrings.health,
                         onTap: () {},
                         color: AppColors.kBlue,
                         darkColor: AppColors.kBlueDark,

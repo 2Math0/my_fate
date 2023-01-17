@@ -7,6 +7,7 @@ import '../../resources/strings_manager.dart';
 import '../../resources/values_manager.dart';
 
 class TaskTypeItem extends StatelessWidget {
+  final String name;
   final Color color;
   final Color darkColor;
   final Color lightColor;
@@ -17,6 +18,7 @@ class TaskTypeItem extends StatelessWidget {
 
   const TaskTypeItem({
     Key? key,
+    required this.name,
     required this.color,
     required this.darkColor,
     required this.lightColor,
@@ -46,7 +48,7 @@ class TaskTypeItem extends StatelessWidget {
               ),
               const SizedBox(height: AppMargin.m16),
               Text(
-                AppStrings.personal,
+                name,
                 style: Theme.of(context).textTheme.headline3,
               ),
               const SizedBox(height: AppMargin.m8),
