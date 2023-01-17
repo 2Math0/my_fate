@@ -29,8 +29,9 @@ class HomePage extends StatelessWidget {
                 crossAxisSpacing: AppSize.s16,
                 mainAxisSpacing: AppSize.s16,
                 shrinkWrap: true,
-                children: const [
+                children: [
                   TaskTypeItem(
+                      onTap: () {},
                       color: AppColors.kYellow,
                       darkColor: AppColors.kYellowDark,
                       lightColor: AppColors.kYellowLight,
@@ -38,6 +39,7 @@ class HomePage extends StatelessWidget {
                       leftNum: 12,
                       doneNum: 1),
                   TaskTypeItem(
+                      onTap: () {},
                       color: AppColors.kRed,
                       darkColor: AppColors.kRedDark,
                       lightColor: AppColors.kRedLight,
@@ -45,6 +47,7 @@ class HomePage extends StatelessWidget {
                       leftNum: 12,
                       doneNum: 1),
                   TaskTypeItem(
+                      onTap: () {},
                       color: AppColors.kBlue,
                       darkColor: AppColors.kBlueDark,
                       lightColor: AppColors.kBlueLight,

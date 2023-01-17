@@ -3,7 +3,7 @@ class AppStrings {
 
   // home page
   static const String hi = "Hi";
-  static const String userName = "Username";
+  static const String userName = "User";
   static const String tasks = "Tasks";
   static const String work = "Work";
   static const String health = "Health";

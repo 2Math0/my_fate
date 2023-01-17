@@ -13,6 +13,7 @@ class TaskTypeItem extends StatelessWidget {
   final IconData icon;
   final int leftNum;
   final int doneNum;
+  final VoidCallback onTap;
 
   const TaskTypeItem({
     Key? key,
@@ -22,45 +23,49 @@ class TaskTypeItem extends StatelessWidget {
     required this.icon,
     required this.leftNum,
     required this.doneNum,
+    required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        decoration: AppDecoration.defaultBoxDecoration(lightColor),
-        child: Padding(
-          padding: const EdgeInsets.all(AppPadding.p16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(
-                icon,
-                color: darkColor,
-                size: AppSize.s38,
-              ),
-              const SizedBox(height: AppMargin.m16),
-              Text(
-                AppStrings.personal,
-                style: Theme.of(context).textTheme.headline3,
-              ),
-              const SizedBox(height: AppMargin.m8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  NumTextRoundedBG(
-                      bgColor: color,
-                      textColor: darkColor,
-                      txt: '$leftNum ${AppStrings.left.toLowerCase()}'),
-                  NumTextRoundedBG(
-                      bgColor: AppColors.kWhite,
-                      textColor: darkColor,
-                      txt: '$doneNum ${AppStrings.done.toLowerCase()}'),
-                ],
-              )
-            ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Expanded(
+        child: Container(
+          decoration: AppDecoration.defaultBoxDecoration(lightColor),
+          child: Padding(
+            padding: const EdgeInsets.all(AppPadding.p16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(
+                  icon,
+                  color: darkColor,
+                  size: AppSize.s38,
+                ),
+                const SizedBox(height: AppMargin.m16),
+                Text(
+                  AppStrings.personal,
+                  style: Theme.of(context).textTheme.headline3,
+                ),
+                const SizedBox(height: AppMargin.m8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    NumTextRoundedBG(
+                        bgColor: color,
+                        textColor: darkColor,
+                        txt: '$leftNum ${AppStrings.left.toLowerCase()}'),
+                    NumTextRoundedBG(
+                        bgColor: AppColors.kWhite,
+                        textColor: darkColor,
+                        txt: '$doneNum ${AppStrings.done.toLowerCase()}'),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
