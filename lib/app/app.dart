@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_fate/presentation/view/home_page.dart';
+import 'package:my_fate/presentation/view/nav_bar.dart';
 
 import '../presentation/resources/theme_manager.dart';
 
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Fate',
       debugShowCheckedModeBanner: false,
       theme: getApplicationTheme(context),
-      home: const HomePage(),
+      home: const NavBarScreen(),
     );
   }
 }

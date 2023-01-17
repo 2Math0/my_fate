@@ -30,42 +30,40 @@ class TaskTypeItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Expanded(
-        child: Container(
-          decoration: AppDecoration.defaultBoxDecoration(lightColor),
-          child: Padding(
-            padding: const EdgeInsets.all(AppPadding.p16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(
-                  icon,
-                  color: darkColor,
-                  size: AppSize.s38,
-                ),
-                const SizedBox(height: AppMargin.m16),
-                Text(
-                  AppStrings.personal,
-                  style: Theme.of(context).textTheme.headline3,
-                ),
-                const SizedBox(height: AppMargin.m8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    NumTextRoundedBG(
-                        bgColor: color,
-                        textColor: darkColor,
-                        txt: '$leftNum ${AppStrings.left.toLowerCase()}'),
-                    NumTextRoundedBG(
-                        bgColor: AppColors.kWhite,
-                        textColor: darkColor,
-                        txt: '$doneNum ${AppStrings.done.toLowerCase()}'),
-                  ],
-                )
-              ],
-            ),
+      child: Container(
+        decoration: AppDecoration.defaultBoxDecoration(lightColor),
+        child: Padding(
+          padding: const EdgeInsets.all(AppPadding.p16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(
+                icon,
+                color: darkColor,
+                size: AppSize.s38,
+              ),
+              const SizedBox(height: AppMargin.m16),
+              Text(
+                AppStrings.personal,
+                style: Theme.of(context).textTheme.headline3,
+              ),
+              const SizedBox(height: AppMargin.m8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  NumTextRoundedBG(
+                      bgColor: color,
+                      textColor: darkColor,
+                      txt: '$leftNum ${AppStrings.left.toLowerCase()}'),
+                  NumTextRoundedBG(
+                      bgColor: AppColors.kWhite,
+                      textColor: darkColor,
+                      txt: '$doneNum ${AppStrings.done.toLowerCase()}'),
+                ],
+              )
+            ],
           ),
         ),
       ),
