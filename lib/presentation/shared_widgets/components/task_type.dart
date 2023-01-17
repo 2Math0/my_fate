@@ -31,26 +31,28 @@ class TaskTypeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
+      highlightColor: lightColor,
+      splashColor: lightColor,
       child: Container(
         decoration: AppDecoration.defaultBoxDecoration(lightColor),
         child: Padding(
-          padding: const EdgeInsets.all(AppPadding.p16),
+          padding: const EdgeInsets.all(AppPadding.p12),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SvgPicture.asset(svgIcon, color: darkColor, height: AppSize.s38),
+              SvgPicture.asset(svgIcon, color: darkColor, height: AppSize.s32),
               const SizedBox(height: AppMargin.m16),
               Text(
                 name,
                 style: Theme.of(context).textTheme.headline3,
               ),
               const SizedBox(height: AppMargin.m8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Wrap(
+                spacing: AppPadding.p8,
                 children: [
                   NumTextRoundedBG(
                       bgColor: color,
