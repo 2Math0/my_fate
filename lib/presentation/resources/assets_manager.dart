@@ -6,7 +6,7 @@ class AppIcons {
   // Navigator Icons
   static const String home = '$appIconPath/home.svg';
   static const String plus = '$appIconPath/plus.svg';
-  static const String person = '$appIconPath/person.svg';
+  static const String person = '$appIconPath/person_1.svg';
 
   // Home Icons
   static const String bag = '$appIconPath/bag.svg';
@@ -33,4 +33,7 @@ class AppIcons {
 
   // Social Icons
   static const String github = "$appIconPath/github.svg";
+
+  // Transparent Icon
+  static const String transparent = "$appIconPath/transparent.svg";
 }

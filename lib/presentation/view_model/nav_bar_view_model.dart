@@ -46,10 +46,9 @@ class NavBarViewModel extends BaseViewModel
     return _currentIndex;
   }
 
-  Color navColors(int i) {
-    return getCurrentIndex == i
-        ? AppColors.primaryBlue
-        : AppColors.inactiveGrey;
+  Color navColors(
+      {required int i, Color secondaryColor = AppColors.inactiveGrey}) {
+    return getCurrentIndex == i ? AppColors.primaryBlue : secondaryColor;
   }
 
   @override

@@ -20,7 +20,9 @@ class NavBarScreen extends StatefulWidget {
   State<NavBarScreen> createState() => _NavBarScreenState();
 }
 
-const double bottomNavItemsScale = AppSize.s20;
+const double bottomNavItemsScale = AppSize.s28;
+const BorderRadius bottomNavBarBorderRadius =
+    BorderRadius.all(Radius.circular(AppCircularRadius.cr32));
 
 class _NavBarScreenState extends State<NavBarScreen> {
   final NavBarViewModel _viewModel = NavBarViewModel();
@@ -60,28 +62,63 @@ class _NavBarScreenState extends State<NavBarScreen> {
         onTap: () => FocusScope.of(context).unfocus(),
         child: fragment,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: SvgPicture.asset(AppIcons.home,
-                  color: _viewModel.navColors(0)),
-              label: "Home"),
-          BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                AppIcons.addTask,
-                color: _viewModel.navColors(1),
-              ),
-              label: "Add"),
-          BottomNavigationBarItem(
-              icon: SvgPicture.asset(AppIcons.person,
-                  color: _viewModel.navColors(2)),
-              label: "Profile"),
-        ],
-        currentIndex: _viewModel.getCurrentIndex,
-        type: BottomNavigationBarType.fixed,
-        unselectedItemColor: Colors.grey,
-        selectedItemColor: AppColors.primaryBlue,
-        onTap: _viewModel.onPageChanged,
+      floatingActionButton: Container(
+          width: AppSize.s60,
+          height: AppSize.s60,
+          decoration: BoxDecoration(
+              color:
+                  _viewModel.navColors(i: 1, secondaryColor: AppColors.kBlack),
+              borderRadius: const BorderRadius.all(
+                  Radius.circular(AppCircularRadius.cr20))),
+          child: IconButton(
+            onPressed: () => _viewModel.onPageChanged(1),
+            icon: SvgPicture.asset(AppIcons.plus,
+                color: AppColors.kWhite, width: bottomNavItemsScale - 3),
+          )),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(
+            bottom: AppPadding.p8, left: AppPadding.p8, right: AppPadding.p8),
+        child: Container(
+          height: AppSize.s60,
+          decoration: const BoxDecoration(
+              color: AppColors.kWhite,
+              borderRadius: bottomNavBarBorderRadius,
+              boxShadow: [
+                BoxShadow(
+                    color: AppColors.inactiveGrey,
+                    spreadRadius: 1,
+                    blurRadius: 50),
+              ]),
+          child: ClipRRect(
+            borderRadius: bottomNavBarBorderRadius,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                    onPressed: () => _viewModel.onPageChanged(0),
+                    tooltip: "Home",
+                    splashRadius: AppSize.s10,
+                    icon: SvgPicture.asset(AppIcons.home,
+                        width: bottomNavItemsScale,
+                        color: _viewModel.navColors(i: 0))),
+
+                // for centering the items in row
+                const SizedBox(width: bottomNavItemsScale),
+                const SizedBox(width: bottomNavItemsScale),
+
+                IconButton(
+                  tooltip: "Profile",
+                  splashRadius: AppSize.s10,
+                  onPressed: () => _viewModel.onPageChanged(2),
+                  icon: SvgPicture.asset(AppIcons.person,
+                      width: bottomNavItemsScale,
+                      color: _viewModel.navColors(i: 2)),
+                )
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

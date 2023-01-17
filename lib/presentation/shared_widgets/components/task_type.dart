@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_fate/presentation/shared_widgets/components/rounded_text.dart';
 
 import '../../resources/colors_manager.dart';
@@ -11,7 +12,7 @@ class TaskTypeItem extends StatelessWidget {
   final Color color;
   final Color darkColor;
   final Color lightColor;
-  final IconData icon;
+  final String svgIcon;
   final int leftNum;
   final int doneNum;
   final VoidCallback onTap;
@@ -22,7 +23,7 @@ class TaskTypeItem extends StatelessWidget {
     required this.color,
     required this.darkColor,
     required this.lightColor,
-    required this.icon,
+    required this.svgIcon,
     required this.leftNum,
     required this.doneNum,
     required this.onTap,
@@ -41,11 +42,7 @@ class TaskTypeItem extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
-                icon,
-                color: darkColor,
-                size: AppSize.s38,
-              ),
+              SvgPicture.asset(svgIcon, color: darkColor, height: AppSize.s38),
               const SizedBox(height: AppMargin.m16),
               Text(
                 name,

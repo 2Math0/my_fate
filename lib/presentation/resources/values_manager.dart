@@ -40,6 +40,7 @@ class AppSize {
   static const double s20 = 20.0;
 
   static const double s24 = 24.0;
+  static const double s28 = 28.0;
   static const double s30 = 30.0;
   static const double s32 = 32.0;
   static const double s38 = 38.0;
@@ -57,7 +58,10 @@ class AppCircularRadius {
   static const double cr5 = 5.0;
   static const double cr66 = 66.0;
   static const double cr8 = 8.0;
+  static const double cr15 = 15.0;
+  static const double cr20 = 20.0;
   static const double cr24 = 24.0;
+  static const double cr32 = 32.0;
 }
 
 class AppElevation {
