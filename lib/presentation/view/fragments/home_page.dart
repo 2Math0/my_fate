@@ -7,7 +7,7 @@ import 'package:my_fate/presentation/resources/colors_manager.dart';
 import 'package:my_fate/presentation/resources/strings_manager.dart';
 import 'package:my_fate/presentation/resources/text_styles_manager.dart';
 import 'package:my_fate/presentation/resources/values_manager.dart';
-import 'package:my_fate/presentation/view/tasks_page.dart';
+import 'package:my_fate/presentation/view/tasks_screen/tasks_screen.dart';
 import 'package:typewritertext/typewritertext.dart';
 
 import '../../shared_widgets/components/task_type.dart';

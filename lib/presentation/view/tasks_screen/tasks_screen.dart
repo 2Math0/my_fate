@@ -6,6 +6,7 @@ import 'package:my_fate/presentation/resources/colors_manager.dart';
 import 'package:my_fate/presentation/resources/strings_manager.dart';
 import 'package:my_fate/presentation/resources/text_styles_manager.dart';
 import 'package:my_fate/presentation/resources/values_manager.dart';
+import 'package:my_fate/presentation/view/tasks_screen/componentes/date_picker.dart';
 
 class TaskScreen extends StatelessWidget {
   const TaskScreen({Key? key}) : super(key: key);
@@ -20,19 +21,23 @@ class TaskScreen extends StatelessWidget {
         description: AppStrings.taskDescription,
         size: size,
       ),
-      body: Container(
-        padding: const EdgeInsets.all(AppPadding.p20),
-        decoration: const BoxDecoration(
-            color: AppColors.kWhite,
-            borderRadius: BorderRadius.vertical(
-                top: Radius.circular(AppCircularRadius.cr24))),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: const [
-            Text(AppStrings.taskDescription),
-            Text(AppStrings.taskDescription),
-            Text(AppStrings.taskDescription)
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          height: size.height,
+          padding: const EdgeInsets.all(AppPadding.p20),
+          decoration: const BoxDecoration(
+              color: AppColors.kWhite,
+              borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(AppCircularRadius.cr24))),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: const [
+              DatePicker(),
+              Text(AppStrings.taskDescription),
+              Text(AppStrings.taskDescription),
+              Text(AppStrings.taskDescription)
+            ],
+          ),
         ),
       ),
     );
