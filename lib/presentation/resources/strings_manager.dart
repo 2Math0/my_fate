@@ -11,4 +11,10 @@ class AppStrings {
   static const String left = "Left";
   static const String done = "Done";
   static const String add = "Add";
+
+  // tasks screen
+  static const String personalTasks = "Personal Tasks";
+  static const String workTasks = "Work Tasks";
+  static const String healthTasks = "Health Tasks";
+  static const String taskDescription = "check out your tasks";
 }

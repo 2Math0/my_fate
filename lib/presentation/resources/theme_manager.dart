@@ -40,6 +40,7 @@ ThemeData getApplicationTheme(BuildContext context) {
     appBarTheme: AppBarTheme(
         elevation: 0,
         backgroundColor: Colors.transparent,
+        iconTheme: const IconThemeData(color: AppColors.kWhite),
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarBrightness: Brightness.dark, // For iOS: (dark icons)

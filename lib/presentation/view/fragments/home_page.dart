@@ -7,6 +7,7 @@ import 'package:my_fate/presentation/resources/colors_manager.dart';
 import 'package:my_fate/presentation/resources/strings_manager.dart';
 import 'package:my_fate/presentation/resources/text_styles_manager.dart';
 import 'package:my_fate/presentation/resources/values_manager.dart';
+import 'package:my_fate/presentation/view/tasks_page.dart';
 import 'package:typewritertext/typewritertext.dart';
 
 import '../../shared_widgets/components/task_type.dart';
@@ -84,7 +85,10 @@ class HomePage extends StatelessWidget {
                         TaskTypeItem(
                             size: wrapItemsSize(),
                             name: AppStrings.personal,
-                            onTap: () {},
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (builder) => const TaskScreen())),
                             color: AppColors.kYellow,
                             darkColor: AppColors.kYellowDark,
                             lightColor: AppColors.kYellowLight,
