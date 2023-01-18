@@ -21,23 +21,28 @@ class TaskScreen extends StatelessWidget {
         description: AppStrings.taskDescription,
         size: size,
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          height: size.height,
-          padding: const EdgeInsets.all(AppPadding.p20),
-          decoration: const BoxDecoration(
-              color: AppColors.kWhite,
-              borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(AppCircularRadius.cr24))),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: const [
-              DatePicker(),
-              Text(AppStrings.taskDescription),
-              Text(AppStrings.taskDescription),
-              Text(AppStrings.taskDescription)
-            ],
-          ),
+      body: Container(
+        height: size.height,
+        padding: const EdgeInsets.all(AppPadding.p20),
+        decoration: const BoxDecoration(
+            color: AppColors.kWhite,
+            borderRadius: BorderRadius.vertical(
+                top: Radius.circular(AppCircularRadius.cr24))),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const DatePicker(),
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(AppStrings.taskDescription),
+                  Text(AppStrings.taskDescription),
+                  Text(AppStrings.taskDescription),
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );
