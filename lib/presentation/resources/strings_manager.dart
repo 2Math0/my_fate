@@ -17,4 +17,7 @@ class AppStrings {
   static const String workTasks = "Work Tasks";
   static const String healthTasks = "Health Tasks";
   static const String taskDescription = "check out your tasks";
+
+  // add task
+  static const String addTask = "Add Task";
 }

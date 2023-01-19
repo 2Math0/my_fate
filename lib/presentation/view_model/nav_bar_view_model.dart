@@ -61,7 +61,7 @@ class NavBarViewModel extends BaseViewModel
 
   // private functions
   List _getPages() =>
-      [const HomePage(), const ADdTaskPage(), const ProfilePage()];
+      [const HomePage(), const AddTaskPage(), const ProfilePage()];
 
   void _postDataToView() {
     inputNavViewObject.add(_list[_currentIndex]);
