@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:my_fate/data/hours_manager.dart';
 import 'package:my_fate/data/model/task_model.dart';
@@ -95,6 +97,7 @@ class AddTaskViewModel extends BaseViewModel {
   }
 
   void _insertTask(TaskModel task) {
+    log(task.toJson().toString());
     _bookHours();
     // sanity checkers lvl 1
     if (datesOfSortedTasks.containsKey(task.date)) {
@@ -122,12 +125,15 @@ class AddTaskViewModel extends BaseViewModel {
   void _bookHours() {
     List<String> bookedHours = [];
     for (int i = int.parse(startTime.text.split(":")[0]);
-        i < int.parse(hoursController.text);
+        i <= int.parse(hoursController.text);
         i++) {
       bookedHours.add("${i > 10 ? i : "0$i"}:00");
     }
+    log("booked hours $bookedHours");
     for (var hour in bookedHours) {
+      log(" hour to book $hour");
       hoursManager[hour]![dateController.text] = true;
+      log(' hour state ${hoursManager[hour]![dateController.text]}');
     }
   }
 }

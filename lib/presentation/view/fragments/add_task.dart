@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:my_fate/data/hours_manager.dart';
+import 'package:my_fate/data/sorted_tasks.dart';
 import 'package:my_fate/presentation/resources/colors_manager.dart';
 import 'package:my_fate/presentation/view_model/add_task_view_model.dart';
 
@@ -52,7 +56,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                           hintText: "Category",
                           validate: _viewModel.validateRequired),
                       DataField(
-                          controller: _viewModel.titleController,
+                          controller: _viewModel.dateController,
                           hintText: "Day",
                           validate: _viewModel.validateRequired),
                       DataField(
@@ -68,6 +72,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
                           onPressed: () {
                             if (_viewModel.formKey.currentState!.validate()) {
                               _viewModel.addTask();
+                              log(datesOfSortedTasks.toString());
+                              log(hoursManager.toString());
                             }
                           },
                           style: ElevatedButton.styleFrom(
