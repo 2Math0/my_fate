@@ -8,10 +8,13 @@ class NumberValidator extends BaseValidator {
   @override
   String getMessage() {
     String message = '';
+    // String concatenation for multiple error messages
     if (!_isNumeric) {
       message = '* ${AppStrings.numberValidationMessage}';
     }
     if (!_isNotEmpty) {
+      // this line sees if there's an existing message or not
+      // if there is then will be a line break, if not no String added
       message =
           "$message${message.isNotEmpty ? '\n' : ''}* ${AppStrings.requiredFieldMessage}";
     }
