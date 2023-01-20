@@ -203,15 +203,4 @@ class TaskManagerViewModel extends BaseViewModel {
       log(' hour state ${hoursManager[hour]![dateFormatDDMMYYYY(selectedDate)]}');
     }
   }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2020, 8),
-        lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate) {
-      selectedDate = picked;
-    }
-  }
 }
