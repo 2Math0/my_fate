@@ -31,6 +31,9 @@ class TaskModel {
   /// it holds with it the unique color
   String? category;
 
+  /// [isDone] is the parameter that defines the state of completeness of the task
+  bool? isDone;
+
   /// ## Definition
   /// TaskModel is the model of tasks in the app it controls
   /// Adding, Categorize, Edit, Delete, isDone Tasks in constant time
@@ -68,7 +71,8 @@ class TaskModel {
       this.startTime,
       this.hours,
       this.date,
-      this.category});
+      this.category,
+      this.isDone = false});
 
   TaskModel.fromJson(Map<String, dynamic> json) {
     title = json["title"];
@@ -77,6 +81,7 @@ class TaskModel {
     hours = json["hours"];
     date = json["date"];
     category = json["category"];
+    isDone = json["isDone"];
   }
 
   Map<String, dynamic> toJson() {
@@ -87,6 +92,7 @@ class TaskModel {
     data["hours"] = hours;
     data["date"] = date;
     data["category"] = category;
+    data["isDone"] = isDone;
     return data;
   }
 }

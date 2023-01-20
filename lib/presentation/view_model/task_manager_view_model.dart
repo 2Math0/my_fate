@@ -1,13 +1,18 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:my_fate/app/converter.dart';
 import 'package:my_fate/data/hours_manager.dart';
 import 'package:my_fate/data/model/task_model.dart';
 import 'package:my_fate/data/sorted_tasks.dart';
 import 'package:my_fate/presentation/view_model/base.dart';
 
 class TaskManagerViewModel extends BaseViewModel {
+  //ToDo : issue - available hours isn't working probably
+  //ToDo : issue - inserting new tasks aren't sorted
+  //ToDo : pick today automate
+  //ToDo : issue - booking more 2 hours rather than 1
+
   late final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   late final TextEditingController titleController = TextEditingController();
@@ -16,6 +21,8 @@ class TaskManagerViewModel extends BaseViewModel {
   // final TextEditingController startTime = TextEditingController(); // drop down
   // late final TextEditingController dateController =
   //     TextEditingController(); // Calender Picker
+
+  late final Converter converter = const Converter();
 
   String startTime = '';
   String category = "";
@@ -56,20 +63,22 @@ class TaskManagerViewModel extends BaseViewModel {
       description: descriptionController.text,
       startTime: startTime,
       category: category,
-      date: dateFormatDDMMYYYY(selectedDate),
+      date: converter.dateFormatDDMMYYYY(selectedDate),
       hours: selectedNumberOfHours,
     ));
   }
 
   void pickDate() {
-    if (datesOfSortedTasks.containsKey(dateFormatDDMMYYYY(selectedDate)) ==
+    if (datesOfSortedTasks
+            .containsKey(converter.dateFormatDDMMYYYY(selectedDate)) ==
         false) {
-      datesOfSortedTasks[dateFormatDDMMYYYY(selectedDate)] = [];
+      datesOfSortedTasks[converter.dateFormatDDMMYYYY(selectedDate)] = [];
       for (var k in hoursManager.keys) {
-        hoursManager[k]![dateFormatDDMMYYYY(selectedDate)] = false;
+        hoursManager[k]![converter.dateFormatDDMMYYYY(selectedDate)] = false;
       }
     }
-    availableHours = _availableStartHours(dateFormatDDMMYYYY(selectedDate));
+    availableHours =
+        _availableStartHours(converter.dateFormatDDMMYYYY(selectedDate));
     log(availableHours.toString());
     timeInputIsEnabled = true;
   }
@@ -111,9 +120,10 @@ class TaskManagerViewModel extends BaseViewModel {
 
   void get availableNumberOfHoursUponStartTime {
     log(startTime);
-    int startHour = int.parse(startTime.split(":")[0]);
+    int startHour = _parsingHourToInt(startTime);
     for (int i = startHour + 1; i < 23; i++) {
-      if (hoursManager[_intToTime(i)]![dateFormatDDMMYYYY(selectedDate)] !=
+      if (hoursManager[_intToTime(i)]![
+              converter.dateFormatDDMMYYYY(selectedDate)] !=
           false) {
         maxHours++;
       } else {
@@ -125,21 +135,6 @@ class TaskManagerViewModel extends BaseViewModel {
   }
 
   // Date Formatter
-  String dateFormatDDMMYYYY(DateTime date) {
-    return DateFormat('dd/MM/yyyy').format(date).toString();
-  }
-
-  DateTime convertToDate(String input) {
-    return DateFormat("DD/MM/yyyy").parseStrict(input);
-  }
-
-  DateTime convertHourToDate(String hour) {
-    return DateFormat("hh:mm").parseStrict(hour);
-  }
-
-  String convertToPM(DateTime time) {
-    return DateFormat("h:mma").format(time);
-  }
 
   // Private Functions Section
 
@@ -149,8 +144,8 @@ class TaskManagerViewModel extends BaseViewModel {
       // the value that needs to be sorted called key
       TaskModel key = datesOfSortedTasks[date]![i];
       int j = i - 1;
-      while (int.parse(datesOfSortedTasks[date]![j].startTime!.split(":")[0]) >
-              int.parse(key.startTime!.split(":")[0]) &&
+      while (_parsingHourToInt(datesOfSortedTasks[date]![j].startTime!) >
+              _parsingHourToInt(key.startTime!) &&
           j >= 0) {
         datesOfSortedTasks[date]![j + 1] = datesOfSortedTasks[date]![j];
         // that line make the while loop goes on
@@ -173,8 +168,8 @@ class TaskManagerViewModel extends BaseViewModel {
         int i = datesOfSortedTasks[task.date!]!.length - 1;
         List<TaskModel> list = datesOfSortedTasks[task.date!]!;
         while (i >= 0) {
-          if (int.parse(list[i].startTime!.split(":")[0]) >
-              int.parse(task.startTime!.split(":")[0])) {
+          if (_parsingHourToInt(list[i].startTime!) >
+              _parsingHourToInt(startTime)) {
             i--;
           } else {
             list.insert(i, task);
@@ -188,19 +183,20 @@ class TaskManagerViewModel extends BaseViewModel {
   }
 
   String _intToTime(int i) => "${i >= 10 ? i : "0$i"}:00";
+  int _parsingHourToInt(String time) => int.parse(time.split(":")[0]);
 
   void _bookHours() {
     List<String> bookedHours = [];
-    for (int i = int.parse(startTime.split(":")[0]);
-        i <= selectedNumberOfHours;
+    for (int i = _parsingHourToInt(startTime);
+        i <= _parsingHourToInt(startTime) + selectedNumberOfHours;
         i++) {
       bookedHours.add(_intToTime(i));
     }
     log("booked hours $bookedHours");
     for (var hour in bookedHours) {
       log(" hour to book $hour");
-      hoursManager[hour]![dateFormatDDMMYYYY(selectedDate)] = true;
-      log(' hour state ${hoursManager[hour]![dateFormatDDMMYYYY(selectedDate)]}');
+      hoursManager[hour]![converter.dateFormatDDMMYYYY(selectedDate)] = true;
+      log(' hour state ${hoursManager[hour]![converter.dateFormatDDMMYYYY(selectedDate)]}');
     }
   }
 }

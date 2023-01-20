@@ -13,6 +13,7 @@ import 'package:typewritertext/typewritertext.dart';
 import '../../shared_widgets/components/task_type.dart';
 
 class HomePage extends StatelessWidget {
+  // ToDo : count what is left and isDone in tasks by Today's Date
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -88,23 +89,33 @@ class HomePage extends StatelessWidget {
                             onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (builder) => const TaskScreen())),
+                                    builder: (builder) => TaskScreen(
+                                        category: AppStrings.personal))),
                             color: AppColors.yellow,
                             svgIcon: AppIcons.person,
                             leftNum: 12,
                             doneNum: 1),
                         TaskTypeItem(
-                            size: wrapItemsSize(),
-                            name: AppStrings.work,
-                            onTap: () {},
-                            color: ColorRed(),
-                            svgIcon: AppIcons.bag,
-                            leftNum: 12,
-                            doneNum: 1),
+                          size: wrapItemsSize(),
+                          name: AppStrings.work,
+                          color: ColorRed(),
+                          svgIcon: AppIcons.bag,
+                          leftNum: 12,
+                          doneNum: 1,
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (builder) =>
+                                      TaskScreen(category: AppStrings.work))),
+                        ),
                         TaskTypeItem(
                             size: wrapItemsSize(),
                             name: AppStrings.health,
-                            onTap: () {},
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (builder) => TaskScreen(
+                                        category: AppStrings.health))),
                             color: ColorBlue(),
                             svgIcon: AppIcons.heart,
                             leftNum: 12,

@@ -1,37 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:my_fate/data/model/task_model.dart';
+import 'package:my_fate/data/tasks_categories.dart';
 import 'package:my_fate/presentation/resources/colors_manager.dart';
 import 'package:my_fate/presentation/resources/strings_manager.dart';
 import 'package:my_fate/presentation/resources/text_styles_manager.dart';
 import 'package:my_fate/presentation/resources/values_manager.dart';
+import 'package:my_fate/presentation/view_model/task_screen_model.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 import '../../resources/assets_manager.dart';
 import 'components/date_picker.dart';
 
 class TaskScreen extends StatelessWidget {
-  const TaskScreen({Key? key}) : super(key: key);
+  // ToDo : create time line for day and separate booked hours and free hours by colors
+  // ToDo : change the list by picking days
+  // ToDo : add calender picker to pick a specific day with its week
+
+  final String category;
+  TaskScreen({Key? key, required this.category}) : super(key: key);
+
+  final TasksScreenModel _viewModel = TasksScreenModel();
 
   @override
   Widget build(BuildContext context) {
-    var data = [
-      for (int i = 0; i <= 10; i++)
-        {
-          "title": "This a task",
-          "description": "this is a description",
-          "start time": "10:00 am",
-          "end time": "11:00 am",
-          "category": "personal"
-        }
-    ];
+    _viewModel.todayWeek;
+    _viewModel.importDayTasks(category, _viewModel.today);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColors.kBlack,
       body: CustomScrollView(slivers: [
         // App Bar
         TaskAppBar(
-          title: AppStrings.personalTasks,
+          title: "$category ${AppStrings.tasks}",
           description: AppStrings.taskDescription,
           size: size,
         ),
@@ -43,10 +45,13 @@ class TaskScreen extends StatelessWidget {
                 color: AppColors.kWhite,
                 borderRadius: BorderRadius.vertical(
                     top: Radius.circular(AppCircularRadius.cr24))),
-            child: const DatePicker(),
+            child: DatePicker(
+              days: _viewModel.weekDays,
+              selectedDay: _viewModel.today.weekday,
+            ),
           ),
         ),
-        if (data[0].isEmpty)
+        if (_viewModel.tasks.isEmpty)
           SliverFillRemaining(
             child: Container(
                 color: AppColors.kWhite,
@@ -58,8 +63,8 @@ class TaskScreen extends StatelessWidget {
           ),
         SliverList(
             delegate: SliverChildBuilderDelegate(
-                (context, index) => TaskTimeLine(task: data[index]),
-                childCount: data.length)),
+                (context, index) => TaskTimeLine(task: _viewModel.tasks[index]),
+                childCount: _viewModel.tasks.length)),
       ]),
     );
   }
@@ -133,7 +138,7 @@ class TaskAppBar extends StatelessWidget {
 }
 
 class TaskTimeLine extends StatelessWidget {
-  final Map<String, dynamic> task;
+  final TaskModel task;
   const TaskTimeLine({Key? key, required this.task}) : super(key: key);
 
   @override
@@ -149,16 +154,20 @@ class TaskTimeLine extends StatelessWidget {
             width: AppSize.s20,
             child: TimeLineTileCustom(category: AppStrings.personal),
           ),
-          Text(task["start time"],
+          Text(task.startTime!,
               style: const AppTextStyles().bodyTextNormalRegular),
           const SizedBox(width: AppMargin.m16),
           Expanded(
+            // isDone
+            // hours number
+            //
             child: TaskCard(
-                title: task["title"],
-                startTime: task["start time"],
-                endTime: task["end time"],
-                categoryColor: AppColors.red.light,
-                description: task["description"] ?? ''),
+              title: task.title!,
+              startTime: task.startTime!,
+              hours: task.hours!,
+              categoryColor: taskCategory[task.category]!.light,
+              description: task.description ?? '',
+            ),
           )
         ],
       ),
@@ -169,16 +178,16 @@ class TaskTimeLine extends StatelessWidget {
 class TaskCard extends StatelessWidget {
   final String title;
   final String startTime;
-  final String endTime;
+  final int hours;
   final Color categoryColor;
   final String description;
   const TaskCard({
     Key? key,
     required this.title,
     required this.startTime,
-    required this.endTime,
     required this.categoryColor,
     required this.description,
+    required this.hours,
   }) : super(key: key);
 
   @override
@@ -200,10 +209,10 @@ class TaskCard extends StatelessWidget {
               style: const AppTextStyles()
                   .bodyTextNormalRegular
                   .copyWith(color: AppColors.kBlack.withOpacity(0.8))),
-          Text("$startTime - $endTime",
-              style: const AppTextStyles()
-                  .captionNormalRegular
-                  .copyWith(color: AppColors.inactiveGrey)),
+          // Text("$startTime - ${endTime}",
+          //     style: const AppTextStyles()
+          //         .captionNormalRegular
+          //         .copyWith(color: AppColors.inactiveGrey)),
         ],
       ),
     );
