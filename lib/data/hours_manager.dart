@@ -215,13 +215,4 @@ Map<String, Map<String, bool>> hoursManager = {
     '20/01/2023': false,
     '21/01/2023': false
   },
-  '24:00': {
-    '15/01/2023': false,
-    '16/01/2023': false,
-    '17/01/2023': false,
-    '18/01/2023': false,
-    '19/01/2023': false,
-    '20/01/2023': false,
-    '21/01/2023': false
-  }
 };

@@ -20,4 +20,13 @@ class AppStrings {
 
   // add task
   static const String addTask = "Add Task";
+
+  static const String pickACategory = "Pick a Category";
+  static const String pickAnHour = "Pick an Available Hour";
+  static const String numberOfHours = "Number of Hours";
+
+  // Validation
+  static const String requiredFieldMessage = "This Field is Required!";
+  static const String numberValidationMessage =
+      "This Field accept Numbers only!";
 }

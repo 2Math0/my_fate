@@ -157,7 +157,7 @@ class TaskTimeLine extends StatelessWidget {
                 title: task["title"],
                 startTime: task["start time"],
                 endTime: task["end time"],
-                categoryColor: AppColors.kRedLight,
+                categoryColor: AppColors.red.light,
                 description: task["description"] ?? ''),
           )
         ],
@@ -218,7 +218,7 @@ class TimeLineTileCustom extends StatelessWidget {
   }) : super(key: key);
 
   Color get itemColor {
-    return category.isEmpty ? AppColors.inactiveGrey : AppColors.kRedDark;
+    return category.isEmpty ? AppColors.inactiveGrey : ColorRed().dark;
   }
 
   @override

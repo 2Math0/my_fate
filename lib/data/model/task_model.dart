@@ -21,7 +21,7 @@ class TaskModel {
   String? startTime;
 
   /// [hours] represent number of hours needed to complete the task
-  String? hours;
+  int? hours;
 
   /// the [date] which the task is assigned
   /// the date is a required parameter for push notification

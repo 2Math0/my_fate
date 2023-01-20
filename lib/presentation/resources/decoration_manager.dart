@@ -18,20 +18,27 @@ class AppDecoration {
         backgroundColor: color,
       );
 
-  static InputDecoration formFieldDecoration(String hintText) =>
+  static InputDecoration formFieldDecoration(
+          {required String hintText, bool isEnabled = true}) =>
       InputDecoration(
           contentPadding: const EdgeInsets.all(AppPadding.p12),
           hintText: hintText,
+          hintStyle: const AppTextStyles()
+              .bodyTextNormalRegular
+              .copyWith(color: AppColors.inactiveGrey),
           border: defaultOutlineBorder(),
           errorStyle: const AppTextStyles()
               .bodyTextNormalBold
-              .copyWith(color: AppColors.kRedDark),
+              .copyWith(color: AppColors.red.dark),
           errorMaxLines: 8,
+          filled: !isEnabled,
+          enabled: isEnabled,
+          fillColor: AppColors.inactiveGrey,
           enabledBorder: defaultOutlineBorder(),
           focusedBorder: defaultOutlineBorder(color: AppColors.primaryBlue),
-          errorBorder: defaultOutlineBorder(color: AppColors.kRedDark),
+          errorBorder: defaultOutlineBorder(color: AppColors.red.dark),
           focusedErrorBorder: defaultOutlineBorder(
-              color: AppColors.kRedDark, borderWidth: AppSize.s2));
+              color: AppColors.red.dark, borderWidth: AppSize.s2));
 
   static OutlineInputBorder defaultOutlineBorder(
           {Color color = AppColors.inactiveGrey,

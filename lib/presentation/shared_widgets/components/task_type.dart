@@ -9,9 +9,7 @@ import '../../resources/values_manager.dart';
 
 class TaskTypeItem extends StatelessWidget {
   final String name;
-  final Color color;
-  final Color darkColor;
-  final Color lightColor;
+  final ColorShades color;
   final String svgIcon;
   final int leftNum;
   final int doneNum;
@@ -22,8 +20,6 @@ class TaskTypeItem extends StatelessWidget {
     Key? key,
     required this.name,
     required this.color,
-    required this.darkColor,
-    required this.lightColor,
     required this.svgIcon,
     required this.leftNum,
     required this.doneNum,
@@ -35,12 +31,12 @@ class TaskTypeItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      highlightColor: lightColor,
-      splashColor: lightColor,
+      highlightColor: color.light,
+      splashColor: color.light,
       child: Container(
         height: size,
         width: size,
-        decoration: AppDecoration.defaultBoxDecoration(lightColor),
+        decoration: AppDecoration.defaultBoxDecoration(color.light),
         child: Padding(
           padding: const EdgeInsets.all(AppPadding.p12),
           child: Column(
@@ -48,7 +44,7 @@ class TaskTypeItem extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SvgPicture.asset(svgIcon, color: darkColor, height: AppSize.s32),
+              SvgPicture.asset(svgIcon, color: color.dark, height: AppSize.s32),
               const SizedBox(height: AppMargin.m16),
               Text(
                 name,
@@ -59,12 +55,12 @@ class TaskTypeItem extends StatelessWidget {
                 spacing: AppPadding.p8,
                 children: [
                   NumTextRoundedBG(
-                      bgColor: color,
-                      textColor: darkColor,
+                      bgColor: color.normal,
+                      textColor: color.dark,
                       txt: '$leftNum ${AppStrings.left.toLowerCase()}'),
                   NumTextRoundedBG(
                       bgColor: AppColors.kWhite,
-                      textColor: darkColor,
+                      textColor: color.dark,
                       txt: '$doneNum ${AppStrings.done.toLowerCase()}'),
                 ],
               )
