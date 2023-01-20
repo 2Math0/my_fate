@@ -10,6 +10,14 @@ This app will include :
 - Push Notifications
 - State Management
 - Mvvm Architecture
+- Add,Edit,Delete,Mark as done Tasks
+- categorized tasks
+- tasks timeline
+- reponsive design
+- light/dark themes
 
 ## Latest Progress
-<img src="https://user-images.githubusercontent.com/50797015/212465778-ce476e32-28e6-4aa0-b106-3152d1b3750f.png" width=30%/>
+<p>
+<img src="https://user-images.githubusercontent.com/50797015/213196380-ffd3eeb8-1a20-41a2-b5e7-2d61115c56da.png" width=30%/>
+<img src="https://user-images.githubusercontent.com/50797015/213196537-d8ed9847-a106-4450-9965-015f70088bfd.png" width=30%/>
+</p>
