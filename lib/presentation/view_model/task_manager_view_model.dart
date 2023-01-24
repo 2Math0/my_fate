@@ -8,10 +8,7 @@ import 'package:my_fate/data/sorted_tasks.dart';
 import 'package:my_fate/presentation/view_model/base.dart';
 
 class TaskManagerViewModel extends BaseViewModel {
-  //ToDo : issue - available hours isn't working probably
   //ToDo : issue - inserting new tasks aren't sorted
-  //ToDo : pick today automate
-  //ToDo : issue - booking more 2 hours rather than 1
 
   late final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -32,48 +29,34 @@ class TaskManagerViewModel extends BaseViewModel {
   List<String> availableHours = [];
   bool timeInputIsEnabled = false;
   bool noOfHoursInputIsEnabled = false;
-  FocusNode dateFocusNode = FocusNode();
 
   /// start Method is used by Edit Operation
   @override
   void start() {
-    // dateFocusNode.addListener(() {
-    //   if (!dateFocusNode.hasFocus) {
-    //     log("Focus vanished");
-    //     pickDate();
-    //   }
-    // });
-    _focusNodeController();
+    pickDate();
   }
 
   @override
   void dispose() {
     titleController.dispose();
-    // categoryController.dispose();
-    // startTime.dispose();
-    // hoursController.dispose();
-    // dateController.dispose();
-    dateFocusNode.removeListener(() {});
     super.dispose();
   }
 
-  void addTask() {
-    _insertTask(TaskModel(
-      title: titleController.text,
-      description: descriptionController.text,
-      startTime: startTime,
-      category: category,
-      date: converter.dateFormatDDMMYYYY(selectedDate),
-      hours: selectedNumberOfHours,
-    ));
-  }
+  void addTask() => _insertTask(TaskModel(
+        title: titleController.text,
+        description: descriptionController.text,
+        startTime: startTime,
+        category: category,
+        date: converter.dateFormatDDMMYYYY(selectedDate),
+        hours: selectedNumberOfHours,
+      ));
 
   void pickDate() {
     if (datesOfSortedTasks
             .containsKey(converter.dateFormatDDMMYYYY(selectedDate)) ==
         false) {
       datesOfSortedTasks[converter.dateFormatDDMMYYYY(selectedDate)] = [];
-      for (var k in hoursManager.keys) {
+      for (String k in hoursManager.keys) {
         hoursManager[k]![converter.dateFormatDDMMYYYY(selectedDate)] = false;
       }
     }
@@ -83,23 +66,7 @@ class TaskManagerViewModel extends BaseViewModel {
     timeInputIsEnabled = true;
   }
 
-  void timePicked() {
-    noOfHoursInputIsEnabled = true;
-  }
-
-  void _focusNodeController() {
-    dateFocusNode.addListener(() {
-      if (dateFocusNode.hasFocus) {
-        log("has focus");
-        if (!dateFocusNode.hasFocus) {}
-      } else {
-        log("didn't get focus");
-        pickDate();
-        log(availableHours.toString());
-        log("something wrong");
-      }
-    });
-  }
+  void timePicked() => noOfHoursInputIsEnabled = true;
 
   /// Create a list of all available hours to book for a task
   List<String> _availableStartHours(String date) {
@@ -119,11 +86,13 @@ class TaskManagerViewModel extends BaseViewModel {
   }
 
   void get availableNumberOfHoursUponStartTime {
-    log(startTime);
     int startHour = _parsingHourToInt(startTime);
-    for (int i = startHour + 1; i < 23; i++) {
+    maxHours = 0;
+    log(startHour.toString());
+    for (int i = startHour; i <= 23; i++) {
+      log("in available number of hours loop run at $i");
       if (hoursManager[_intToTime(i)]![
-              converter.dateFormatDDMMYYYY(selectedDate)] !=
+              converter.dateFormatDDMMYYYY(selectedDate)] ==
           false) {
         maxHours++;
       } else {
@@ -165,17 +134,24 @@ class TaskManagerViewModel extends BaseViewModel {
       if (datesOfSortedTasks[task.date!]!.isEmpty) {
         datesOfSortedTasks[task.date!]!.add(task);
       } else {
-        int i = datesOfSortedTasks[task.date!]!.length - 1;
-        List<TaskModel> list = datesOfSortedTasks[task.date!]!;
+        int length = datesOfSortedTasks[task.date!]!.length - 1;
+        int i = length;
+
         while (i >= 0) {
-          if (_parsingHourToInt(list[i].startTime!) >
-              _parsingHourToInt(startTime)) {
+          if (_parsingHourToInt(datesOfSortedTasks[task.date!]![i].startTime!) >
+              _parsingHourToInt(task.startTime!)) {
+            if (i == 0) {
+              datesOfSortedTasks[task.date!]!.insert(i, task);
+            }
             i--;
           } else {
-            list.insert(i, task);
+            datesOfSortedTasks[task.date!]!
+                .insert(i == length ? i : i + 1, task);
             break;
           }
         }
+        // datesOfSortedTasks[task.date!]!.add(task);
+        // _insertionSortTask(task.date!);
       }
     } else {
       datesOfSortedTasks[task.date!] = [task];
@@ -188,7 +164,7 @@ class TaskManagerViewModel extends BaseViewModel {
   void _bookHours() {
     List<String> bookedHours = [];
     for (int i = _parsingHourToInt(startTime);
-        i <= _parsingHourToInt(startTime) + selectedNumberOfHours;
+        i < _parsingHourToInt(startTime) + selectedNumberOfHours;
         i++) {
       bookedHours.add(_intToTime(i));
     }
