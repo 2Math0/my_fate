@@ -4,8 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_fate/app/validation/base_validator.dart';
 import 'package:my_fate/app/validation/required_validator.dart';
-import 'package:my_fate/data/hours_manager.dart';
-import 'package:my_fate/data/sorted_tasks.dart';
 import 'package:my_fate/data/tasks_categories.dart';
 import 'package:my_fate/presentation/resources/colors_manager.dart';
 import 'package:my_fate/presentation/view_model/task_manager_view_model.dart';
@@ -126,7 +124,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
                         padding: const EdgeInsets.all(AppPadding.p16),
                         child: CustomDropDown(
                             hintText: AppStrings.numberOfHours,
-                            validator: RequiredValidator(),
                             items: List<int>.generate(
                                 _viewModel.maxHours, (i) => i + 1),
                             onChanged: (val) {
@@ -135,13 +132,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                       ),
                       Center(
                         child: ElevatedButton(
-                          onPressed: () {
-                            if (_viewModel.formKey.currentState!.validate()) {
-                              _viewModel.addTask();
-                              log(datesOfSortedTasks.toString());
-                              log(hoursManager.toString());
-                            }
-                          },
+                          onPressed: () => _viewModel.validateAddingTask(),
                           style: ElevatedButton.styleFrom(
                               elevation: 0,
                               backgroundColor: AppColors.primaryBlue),
@@ -226,13 +217,15 @@ class CustomDropDown extends StatelessWidget {
   final Color? fillColor;
   final BaseValidator? validator;
   final String hintText;
+  final VoidCallback? onTap;
   const CustomDropDown(
       {Key? key,
       required this.items,
       required this.onChanged,
       this.fillColor = AppColors.kWhite,
-      required this.validator,
-      required this.hintText})
+      this.validator,
+      required this.hintText,
+      this.onTap})
       : super(key: key);
 
   @override
@@ -248,10 +241,11 @@ class CustomDropDown extends StatelessWidget {
         ButtonTheme(
           alignedDropdown: true,
           child: DropdownButtonFormField(
+              onTap: onTap,
               validator: (val) {
                 if (validator == null) {
                   return null;
-                } else if (!validator!.validate(val.toString())) {
+                } else if (!validator!.validate(val)) {
                   return validator!.getMessage();
                 }
                 return null;

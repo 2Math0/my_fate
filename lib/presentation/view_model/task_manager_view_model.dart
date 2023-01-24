@@ -8,16 +8,11 @@ import 'package:my_fate/data/sorted_tasks.dart';
 import 'package:my_fate/presentation/view_model/base.dart';
 
 class TaskManagerViewModel extends BaseViewModel {
-  //ToDo : issue - inserting new tasks aren't sorted
-
   late final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   late final TextEditingController titleController = TextEditingController();
   late final TextEditingController descriptionController =
       TextEditingController();
-  // final TextEditingController startTime = TextEditingController(); // drop down
-  // late final TextEditingController dateController =
-  //     TextEditingController(); // Calender Picker
 
   late final Converter converter = const Converter();
 
@@ -60,10 +55,23 @@ class TaskManagerViewModel extends BaseViewModel {
         hoursManager[k]![converter.dateFormatDDMMYYYY(selectedDate)] = false;
       }
     }
-    availableHours =
-        _availableStartHours(converter.dateFormatDDMMYYYY(selectedDate));
-    log(availableHours.toString());
+    _assignAvailableHours();
     timeInputIsEnabled = true;
+  }
+
+  void _assignAvailableHours() => availableHours =
+      _availableStartHours(converter.dateFormatDDMMYYYY(selectedDate));
+
+  void validateAddingTask() {
+    formKey.currentState!.save();
+    if (formKey.currentState!.validate()) {
+      log("adding task");
+      addTask();
+      _assignAvailableHours();
+      formKey.currentState!.reset();
+      titleController.clear();
+      descriptionController.clear();
+    }
   }
 
   void timePicked() => noOfHoursInputIsEnabled = true;
@@ -88,19 +96,15 @@ class TaskManagerViewModel extends BaseViewModel {
   void get availableNumberOfHoursUponStartTime {
     int startHour = _parsingHourToInt(startTime);
     maxHours = 0;
-    log(startHour.toString());
     for (int i = startHour; i <= 23; i++) {
-      log("in available number of hours loop run at $i");
       if (hoursManager[_intToTime(i)]![
               converter.dateFormatDDMMYYYY(selectedDate)] ==
           false) {
         maxHours++;
       } else {
-        log("max hours $maxHours");
         break;
       }
     }
-    log(hoursManager.toString());
   }
 
   // Date Formatter
@@ -126,7 +130,6 @@ class TaskManagerViewModel extends BaseViewModel {
   }
 
   void _insertTask(TaskModel task) {
-    log(task.toJson().toString());
     _bookHours();
     // sanity checkers lvl 1
     if (datesOfSortedTasks.containsKey(task.date)) {
@@ -134,24 +137,20 @@ class TaskManagerViewModel extends BaseViewModel {
       if (datesOfSortedTasks[task.date!]!.isEmpty) {
         datesOfSortedTasks[task.date!]!.add(task);
       } else {
-        int length = datesOfSortedTasks[task.date!]!.length - 1;
-        int i = length;
-
-        while (i >= 0) {
+        int length = datesOfSortedTasks[task.date!]!.length;
+        for (int i = 0; i < length; i++) {
           if (_parsingHourToInt(datesOfSortedTasks[task.date!]![i].startTime!) >
               _parsingHourToInt(task.startTime!)) {
-            if (i == 0) {
-              datesOfSortedTasks[task.date!]!.insert(i, task);
-            }
-            i--;
-          } else {
-            datesOfSortedTasks[task.date!]!
-                .insert(i == length ? i : i + 1, task);
+            datesOfSortedTasks[task.date!]!.insert(i, task);
+            break;
+          }
+          // in case it's the bigger hour in the list
+          // the above loop condition won't insert the task then
+          else if (i == length - 1) {
+            datesOfSortedTasks[task.date!]!.add(task);
             break;
           }
         }
-        // datesOfSortedTasks[task.date!]!.add(task);
-        // _insertionSortTask(task.date!);
       }
     } else {
       datesOfSortedTasks[task.date!] = [task];
@@ -168,11 +167,8 @@ class TaskManagerViewModel extends BaseViewModel {
         i++) {
       bookedHours.add(_intToTime(i));
     }
-    log("booked hours $bookedHours");
     for (var hour in bookedHours) {
-      log(" hour to book $hour");
       hoursManager[hour]![converter.dateFormatDDMMYYYY(selectedDate)] = true;
-      log(' hour state ${hoursManager[hour]![converter.dateFormatDDMMYYYY(selectedDate)]}');
     }
   }
 }
