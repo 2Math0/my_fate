@@ -34,6 +34,7 @@ class TaskManagerViewModel extends BaseViewModel {
   @override
   void dispose() {
     titleController.dispose();
+    descriptionController.dispose();
     super.dispose();
   }
 
