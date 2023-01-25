@@ -95,11 +95,13 @@ class _AddTaskPageState extends State<AddTaskPage> {
                           child: CupertinoDatePicker(
                             mode: CupertinoDatePickerMode.date,
                             initialDateTime: _viewModel.selectedDate,
+                            dateOrder: DatePickerDateOrder.ydm,
                             onDateTimeChanged: (DateTime newDateTime) {
+                              _viewModel.selectedDate = newDateTime;
                               setState(() {
                                 _viewModel.pickDate();
                               });
-                              _viewModel.selectedDate = newDateTime;
+
                               // Do something
                             },
                           ),
@@ -129,7 +131,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
                       ),
                       Center(
                         child: ElevatedButton(
-                          onPressed: () => _viewModel.validateAddingTask(),
+                          onPressed: () =>
+                              _viewModel.validateAddingTask(context),
                           style: ElevatedButton.styleFrom(
                               elevation: 0,
                               backgroundColor: AppColors.primaryBlue),

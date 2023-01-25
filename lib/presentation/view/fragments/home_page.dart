@@ -144,19 +144,10 @@ class HomePage extends StatelessWidget {
                           highlightColor: Colors.transparent,
                           splashColor: AppColors.inactiveGrey,
                           radius: AppCircularRadius.cr66,
-                          onTap: () =>
-                              ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
+                          onTap: () => customSnackBar(
+                              message:
                                   "Adding Categories will be added in next update",
-                                  style: const AppTextStyles()
-                                      .captionLargeRegular
-                                      .copyWith(color: AppColors.kWhite)),
-                              behavior: SnackBarBehavior.fixed,
-                              elevation: 0,
-                              backgroundColor: AppColors.kBlack,
-                            ),
-                          ),
+                              context: context),
                           child: DottedBorder(
                             borderType: BorderType.RRect,
                             color: AppColors.inactiveGrey,
@@ -189,3 +180,14 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+customSnackBar({required String message, required BuildContext context}) =>
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(message,
+          style: const AppTextStyles()
+              .captionLargeRegular
+              .copyWith(color: AppColors.kWhite)),
+      behavior: SnackBarBehavior.fixed,
+      elevation: 0,
+      backgroundColor: AppColors.kBlack,
+    ));

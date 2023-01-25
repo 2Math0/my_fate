@@ -5,6 +5,7 @@ import 'package:my_fate/app/converter.dart';
 import 'package:my_fate/data/hours_manager.dart';
 import 'package:my_fate/data/model/task_model.dart';
 import 'package:my_fate/data/sorted_tasks.dart';
+import 'package:my_fate/presentation/view/fragments/home_page.dart';
 import 'package:my_fate/presentation/view_model/base.dart';
 
 class TaskManagerViewModel extends BaseViewModel {
@@ -22,7 +23,7 @@ class TaskManagerViewModel extends BaseViewModel {
   DateTime selectedDate = DateTime.now();
   int selectedNumberOfHours = 1;
   List<String> availableHours = [];
-  bool timeInputIsEnabled = false;
+  bool timeInputIsEnabled = true;
   bool noOfHoursInputIsEnabled = false;
 
   /// start Method is used by Edit Operation
@@ -57,21 +58,25 @@ class TaskManagerViewModel extends BaseViewModel {
       }
     }
     _assignAvailableHours();
-    timeInputIsEnabled = true;
+    selectedNumberOfHours = 1;
+    startTime = '';
   }
 
   void _assignAvailableHours() => availableHours =
       _availableStartHours(converter.dateFormatDDMMYYYY(selectedDate));
 
-  void validateAddingTask() {
+  void validateAddingTask(BuildContext context) {
     formKey.currentState!.save();
-    if (formKey.currentState!.validate()) {
-      log("adding task");
+    if (formKey.currentState!.validate() && startTime.isNotEmpty) {
       addTask();
       _assignAvailableHours();
       formKey.currentState!.reset();
       titleController.clear();
       descriptionController.clear();
+    } else {
+      customSnackBar(
+          message: "Fill all Fields and Select an Available Hour",
+          context: context);
     }
   }
 
@@ -97,7 +102,10 @@ class TaskManagerViewModel extends BaseViewModel {
   void get availableNumberOfHoursUponStartTime {
     int startHour = converter.parsingHourToInt(startTime);
     maxHours = 0;
+    log("run $startHour");
     for (int i = startHour; i <= 23; i++) {
+      log(hoursManager[converter.intToTime(i)].toString());
+      log(converter.intToTime(i));
       if (hoursManager[converter.intToTime(i)]![
               converter.dateFormatDDMMYYYY(selectedDate)] ==
           false) {
