@@ -95,10 +95,10 @@ class TaskManagerViewModel extends BaseViewModel {
   }
 
   void get availableNumberOfHoursUponStartTime {
-    int startHour = _parsingHourToInt(startTime);
+    int startHour = converter.parsingHourToInt(startTime);
     maxHours = 0;
     for (int i = startHour; i <= 23; i++) {
-      if (hoursManager[_intToTime(i)]![
+      if (hoursManager[converter.intToTime(i)]![
               converter.dateFormatDDMMYYYY(selectedDate)] ==
           false) {
         maxHours++;
@@ -118,9 +118,10 @@ class TaskManagerViewModel extends BaseViewModel {
       // the value that needs to be sorted called key
       TaskModel key = datesOfSortedTasks[date]![i];
       int j = i - 1;
-      while (_parsingHourToInt(datesOfSortedTasks[date]![j].startTime!) >
-              _parsingHourToInt(key.startTime!) &&
-          j >= 0) {
+      while (
+          converter.parsingHourToInt(datesOfSortedTasks[date]![j].startTime!) >
+                  converter.parsingHourToInt(key.startTime!) &&
+              j >= 0) {
         datesOfSortedTasks[date]![j + 1] = datesOfSortedTasks[date]![j];
         // that line make the while loop goes on
         // as it compares key with the rest of list in backwards
@@ -140,8 +141,9 @@ class TaskManagerViewModel extends BaseViewModel {
       } else {
         int length = datesOfSortedTasks[task.date!]!.length;
         for (int i = 0; i < length; i++) {
-          if (_parsingHourToInt(datesOfSortedTasks[task.date!]![i].startTime!) >
-              _parsingHourToInt(task.startTime!)) {
+          if (converter.parsingHourToInt(
+                  datesOfSortedTasks[task.date!]![i].startTime!) >
+              converter.parsingHourToInt(task.startTime!)) {
             datesOfSortedTasks[task.date!]!.insert(i, task);
             break;
           }
@@ -158,15 +160,12 @@ class TaskManagerViewModel extends BaseViewModel {
     }
   }
 
-  String _intToTime(int i) => "${i >= 10 ? i : "0$i"}:00";
-  int _parsingHourToInt(String time) => int.parse(time.split(":")[0]);
-
   void _bookHours() {
     List<String> bookedHours = [];
-    for (int i = _parsingHourToInt(startTime);
-        i < _parsingHourToInt(startTime) + selectedNumberOfHours;
+    for (int i = converter.parsingHourToInt(startTime);
+        i < converter.parsingHourToInt(startTime) + selectedNumberOfHours;
         i++) {
-      bookedHours.add(_intToTime(i));
+      bookedHours.add(converter.intToTime(i));
     }
     for (var hour in bookedHours) {
       hoursManager[hour]![converter.dateFormatDDMMYYYY(selectedDate)] = true;

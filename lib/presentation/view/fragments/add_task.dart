@@ -9,8 +9,8 @@ import 'package:my_fate/presentation/view_model/task_manager_view_model.dart';
 import '../../resources/strings_manager.dart';
 import '../../resources/text_styles_manager.dart';
 import '../../resources/values_manager.dart';
+import '../../shared_widgets/components/task_app_bar.dart';
 import '../../shared_widgets/components/text_field.dart';
-import '../tasks_screen/tasks_screen.dart';
 
 class AddTaskPage extends StatefulWidget {
   const AddTaskPage({Key? key}) : super(key: key);

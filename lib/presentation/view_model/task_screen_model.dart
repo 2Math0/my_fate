@@ -6,11 +6,12 @@ import 'package:my_fate/data/sorted_tasks.dart';
 import 'package:my_fate/data/tasks_categories.dart';
 import 'package:my_fate/presentation/resources/colors_manager.dart';
 import 'package:my_fate/presentation/resources/values_manager.dart';
+import 'package:my_fate/presentation/view/tasks_screen/components/time_line.dart';
 import 'package:my_fate/presentation/view_model/base.dart';
 
 import '../../data/model/task_model.dart';
 import '../resources/text_styles_manager.dart';
-import '../view/tasks_screen/tasks_screen.dart';
+import '../shared_widgets/components/task_card.dart';
 
 class TasksScreenModel extends BaseViewModel {
   List<TaskModel> tasks = [];
@@ -100,6 +101,7 @@ class TasksScreenModel extends BaseViewModel {
               child: TimeLineTileCustom(
                 category: widgetList[index][1].category,
                 isFirst: index == 0,
+                isLast: widgetList.length - 1 == index,
               ),
             ),
             Text(widgetList[index][0],
@@ -130,7 +132,10 @@ class TasksScreenModel extends BaseViewModel {
           children: [
             SizedBox(
               width: AppSize.s20,
-              child: TimeLineTileCustom(isFirst: index == 0),
+              child: TimeLineTileCustom(
+                isFirst: index == 0,
+                isLast: widgetList.length - 1 == index,
+              ),
             ),
             Text(widgetList[index][0],
                 style: const AppTextStyles()
