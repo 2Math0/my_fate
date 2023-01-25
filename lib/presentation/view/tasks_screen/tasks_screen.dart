@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:my_fate/data/model/task_model.dart';
 import 'package:my_fate/data/tasks_categories.dart';
 import 'package:my_fate/presentation/resources/colors_manager.dart';
 import 'package:my_fate/presentation/resources/strings_manager.dart';
@@ -13,27 +12,37 @@ import 'package:timeline_tile/timeline_tile.dart';
 import '../../resources/assets_manager.dart';
 import 'components/date_picker.dart';
 
-class TaskScreen extends StatelessWidget {
-  // ToDo : create time line for day and separate booked hours and free hours by colors
+class TaskScreen extends StatefulWidget {
   // ToDo : change the list by picking days
   // ToDo : add calender picker to pick a specific day with its week
 
   final String category;
-  TaskScreen({Key? key, required this.category}) : super(key: key);
+  const TaskScreen({Key? key, required this.category}) : super(key: key);
 
+  @override
+  State<TaskScreen> createState() => _TaskScreenState();
+}
+
+class _TaskScreenState extends State<TaskScreen> {
   final TasksScreenModel _viewModel = TasksScreenModel();
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     _viewModel.todayWeek;
-    _viewModel.importDayTasks(category, _viewModel.today);
+    _viewModel.importDayTasks(widget.category, _viewModel.today);
+    _viewModel.start();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColors.kBlack,
       body: CustomScrollView(slivers: [
         // App Bar
         TaskAppBar(
-          title: "$category ${AppStrings.tasks}",
+          title: "${widget.category} ${AppStrings.tasks}",
           description: AppStrings.taskDescription,
           size: size,
         ),
@@ -63,8 +72,8 @@ class TaskScreen extends StatelessWidget {
           ),
         SliverList(
             delegate: SliverChildBuilderDelegate(
-                (context, index) => TaskTimeLine(task: _viewModel.tasks[index]),
-                childCount: _viewModel.tasks.length)),
+                (context, index) => _viewModel.representTasks(index),
+                childCount: _viewModel.widgetList.length)),
       ]),
     );
   }
@@ -137,43 +146,43 @@ class TaskAppBar extends StatelessWidget {
   }
 }
 
-class TaskTimeLine extends StatelessWidget {
-  final TaskModel task;
-  const TaskTimeLine({Key? key, required this.task}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.kWhite,
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(
-            width: AppSize.s20,
-            child: TimeLineTileCustom(category: AppStrings.personal),
-          ),
-          Text(task.startTime!,
-              style: const AppTextStyles().bodyTextNormalRegular),
-          const SizedBox(width: AppMargin.m16),
-          Expanded(
-            // isDone
-            // hours number
-            //
-            child: TaskCard(
-              title: task.title!,
-              startTime: task.startTime!,
-              hours: task.hours!,
-              categoryColor: taskCategory[task.category]!.light,
-              description: task.description ?? '',
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
+// class TaskTimeLine extends StatelessWidget {
+//   final TaskModel task;
+//   const TaskTimeLine({Key? key, required this.task}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       color: AppColors.kWhite,
+//       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           SizedBox(
+//             width: AppSize.s20,
+//             child: TimeLineTileCustom(category: task.category!),
+//           ),
+//           Text(task.startTime!,
+//               style: const AppTextStyles().bodyTextNormalRegular),
+//           const SizedBox(width: AppMargin.m16),
+//           Expanded(
+//             // isDone
+//             // hours number
+//             //
+//             child: TaskCard(
+//               title: task.title!,
+//               startTime: task.startTime!,
+//               hours: task.hours!,
+//               categoryColor: taskCategory[task.category]!.light,
+//               description: task.description ?? '',
+//             ),
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 class TaskCard extends StatelessWidget {
   final String title;
@@ -220,14 +229,18 @@ class TaskCard extends StatelessWidget {
 }
 
 class TimeLineTileCustom extends StatelessWidget {
-  final String category;
+  final String? category;
+  final bool isFirst;
   const TimeLineTileCustom({
     Key? key,
-    required this.category,
+    this.category,
+    required this.isFirst,
   }) : super(key: key);
 
   Color get itemColor {
-    return category.isEmpty ? AppColors.inactiveGrey : ColorRed().dark;
+    return category == null
+        ? AppColors.inactiveGrey
+        : taskCategory[category]!.dark;
   }
 
   @override
@@ -235,17 +248,19 @@ class TimeLineTileCustom extends StatelessWidget {
     return TimelineTile(
       lineXY: 0,
       alignment: TimelineAlign.manual,
-      isFirst: true,
+      isFirst: isFirst,
+      beforeLineStyle: LineStyle(color: itemColor, thickness: AppSize.s2),
       indicatorStyle: IndicatorStyle(
           indicatorXY: 0,
           width: AppSize.s12,
+          // drawGap: true,
           indicator: Container(
             decoration: BoxDecoration(
                 color: AppColors.kWhite,
                 border: Border.all(color: itemColor, width: AppSize.s4),
                 shape: BoxShape.circle),
           )),
-      afterLineStyle: LineStyle(thickness: AppSize.s2, color: itemColor),
+      // afterLineStyle: LineStyle(thickness: AppSize.s2, color: itemColor),
     );
   }
 }
