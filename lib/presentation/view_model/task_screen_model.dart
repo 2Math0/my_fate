@@ -15,10 +15,9 @@ import '../shared_widgets/components/task_card.dart';
 
 class TasksScreenModel extends BaseViewModel {
   List<TaskModel> tasks = [];
-  String date = '';
-  List<String> weekDays = [];
+  List<DateTime> weekDays = [];
   List widgetList = [];
-  final DateTime today = DateTime.now();
+  DateTime today = DateTime.now();
 
   final List<String> dayHours = [
     "00:00",
@@ -51,13 +50,14 @@ class TasksScreenModel extends BaseViewModel {
 
   @override
   void start() {
+    importDayTasks(today);
     widgetList = listBuilder();
   }
 
   @override
   void dispose() {}
 
-  void importDayTasks(String category, DateTime day) {
+  void importDayTasks(DateTime day) {
     String date = converter.dateFormatDDMMYYYY(day);
     log(date);
     if (datesOfSortedTasks.containsKey(date)) {
@@ -65,9 +65,9 @@ class TasksScreenModel extends BaseViewModel {
       for (TaskModel t in temp) {
         log(t.category.toString());
         log(t.title.toString());
-        if (t.category == category.toLowerCase()) {
-          tasks.add(t);
-        }
+        // if (t.category == category.toLowerCase()) {
+        tasks.add(t);
+        // }
       }
     }
     log(tasks.toString());
@@ -77,12 +77,20 @@ class TasksScreenModel extends BaseViewModel {
     int dayNumber = today.weekday;
     log(dayNumber.toString());
     for (int i = dayNumber; i > 0; i--) {
-      weekDays.add(converter.dayFormatter(today.subtract(Duration(days: i))));
+      weekDays.add(today.subtract(Duration(days: i)));
     }
-    weekDays.add(converter.dayFormatter(today));
+    weekDays.add(today);
     for (int i = 1; i < 7 - dayNumber; i++) {
-      weekDays.add(converter.dayFormatter(today.add(Duration(days: i))));
+      weekDays.add(today.add(Duration(days: i)));
     }
+  }
+
+  void selectNewDate(DateTime date) {
+    today = date;
+    tasks = [];
+    tasksIndex = 0;
+    jumpIndex = 0;
+    start();
   }
 
   int tasksIndex = 0;

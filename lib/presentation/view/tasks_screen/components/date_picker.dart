@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:my_fate/app/converter.dart';
 import 'package:my_fate/presentation/resources/colors_manager.dart';
 import 'package:my_fate/presentation/resources/text_styles_manager.dart';
 import 'package:my_fate/presentation/resources/values_manager.dart';
 
 class DatePicker extends StatefulWidget {
-  final List<String> days;
+  final List<DateTime> days;
   final int selectedDay;
-  const DatePicker({Key? key, required this.days, required this.selectedDay})
+  final void Function(int i) onTap;
+  const DatePicker(
+      {Key? key,
+      required this.days,
+      required this.selectedDay,
+      required this.onTap})
       : super(key: key);
 
   @override
@@ -47,7 +53,10 @@ class _DatePickerState extends State<DatePicker> {
             const SizedBox(width: AppSize.s4),
         itemBuilder: (BuildContext context, int i) {
           return GestureDetector(
-            onTap: () => setState(() => selected = i),
+            onTap: () => setState(() {
+              widget.onTap(i);
+              selected = i;
+            }),
             child: Container(
               padding: const EdgeInsets.all(AppPadding.p8),
               decoration: BoxDecoration(
@@ -57,7 +66,8 @@ class _DatePickerState extends State<DatePicker> {
               child: Column(
                 children: [
                   Text(weekList[i], style: selectedColor(i)),
-                  Text(widget.days[i], style: selectedColor(i)),
+                  Text(const Converter().dayFormatter(widget.days[i]),
+                      style: selectedColor(i)),
                 ],
               ),
             ),

@@ -9,7 +9,6 @@ import '../../shared_widgets/components/task_app_bar.dart';
 import 'components/date_picker.dart';
 
 class TaskScreen extends StatefulWidget {
-  // ToDo : change the list by picking days
   // ToDo : add calender picker to pick a specific day with its week
 
   final String category;
@@ -26,7 +25,6 @@ class _TaskScreenState extends State<TaskScreen> {
   void initState() {
     super.initState();
     _viewModel.todayWeek;
-    _viewModel.importDayTasks(widget.category, _viewModel.today);
     _viewModel.start();
   }
 
@@ -34,7 +32,7 @@ class _TaskScreenState extends State<TaskScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: AppColors.kBlack,
+      backgroundColor: AppColors.kWhite,
       body: CustomScrollView(slivers: [
         // App Bar
         TaskAppBar(
@@ -45,17 +43,31 @@ class _TaskScreenState extends State<TaskScreen> {
         // Date Picker + Top Rounded Border
         SliverToBoxAdapter(
           child: Container(
-            padding: const EdgeInsets.all(AppPadding.p20),
-            decoration: const BoxDecoration(
-                color: AppColors.kWhite,
-                borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(AppCircularRadius.cr24))),
-            child: DatePicker(
-              days: _viewModel.weekDays,
-              selectedDay: _viewModel.today.weekday,
+            color: AppColors.kBlack,
+            child: Container(
+              padding: const EdgeInsets.all(AppPadding.p20),
+              decoration: const BoxDecoration(
+                  color: AppColors.kWhite,
+                  borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(AppCircularRadius.cr24))),
+              child: DatePicker(
+                days: _viewModel.weekDays,
+                selectedDay: _viewModel.today.weekday,
+                onTap: (int i) {
+                  setState(() {
+                    _viewModel.selectNewDate(_viewModel.weekDays[i]);
+                  });
+                },
+              ),
             ),
           ),
         ),
+        SliverToBoxAdapter(
+            child: Container(
+                color: AppColors.kWhite,
+                padding: const EdgeInsets.all(AppPadding.p20),
+                child: Text(AppStrings.tasks,
+                    style: const AppTextStyles().headingH3))),
         if (_viewModel.tasks.isEmpty)
           SliverFillRemaining(
             child: Container(
