@@ -63,8 +63,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                           validator: RequiredValidator()),
                       DataField(
                           controller: _viewModel.descriptionController,
-                          hintText: "Description",
-                          validator: RequiredValidator()),
+                          hintText: "Description"),
                       Padding(
                         padding: const EdgeInsets.all(AppPadding.p16),
                         child: CustomDropDown(

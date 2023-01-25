@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:my_fate/app/converter.dart';
 import 'package:my_fate/data/hours_manager.dart';
@@ -102,10 +100,7 @@ class TaskManagerViewModel extends BaseViewModel {
   void get availableNumberOfHoursUponStartTime {
     int startHour = converter.parsingHourToInt(startTime);
     maxHours = 0;
-    log("run $startHour");
     for (int i = startHour; i <= 23; i++) {
-      log(hoursManager[converter.intToTime(i)].toString());
-      log(converter.intToTime(i));
       if (hoursManager[converter.intToTime(i)]![
               converter.dateFormatDDMMYYYY(selectedDate)] ==
           false) {

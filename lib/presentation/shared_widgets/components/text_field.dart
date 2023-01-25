@@ -17,7 +17,7 @@ class DataField extends StatelessWidget {
     Key? key,
     required this.controller,
     required this.hintText,
-    required this.validator,
+    this.validator,
     this.isTwo = false,
     this.keyboardType = TextInputType.text,
     this.isEnabled = true,

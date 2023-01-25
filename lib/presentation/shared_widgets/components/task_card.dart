@@ -39,10 +39,11 @@ class TaskCard extends StatelessWidget {
           Text(title,
               style: const AppTextStyles().headingH5.copyWith(
                   decoration: isDone ? TextDecoration.lineThrough : null)),
-          Text(description,
-              style: const AppTextStyles().bodyTextNormalRegular.copyWith(
-                  color: AppColors.kBlack.withOpacity(0.8),
-                  decoration: isDone ? TextDecoration.lineThrough : null)),
+          if (description.isNotEmpty)
+            Text(description,
+                style: const AppTextStyles().bodyTextNormalRegular.copyWith(
+                    color: AppColors.kBlack.withOpacity(0.8),
+                    decoration: isDone ? TextDecoration.lineThrough : null)),
           Text(
               "  $startTime - ${const Converter().intToTime(const Converter().parsingHourToInt(startTime) + hours)}",
               style: const AppTextStyles()
