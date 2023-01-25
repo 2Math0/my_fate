@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:my_fate/presentation/resources/colors_manager.dart';
 import 'package:my_fate/presentation/resources/strings_manager.dart';
 import 'package:my_fate/presentation/resources/text_styles_manager.dart';
