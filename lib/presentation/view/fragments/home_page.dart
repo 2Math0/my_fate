@@ -9,6 +9,7 @@ import 'package:my_fate/presentation/resources/strings_manager.dart';
 import 'package:my_fate/presentation/resources/text_styles_manager.dart';
 import 'package:my_fate/presentation/resources/values_manager.dart';
 import 'package:my_fate/presentation/view/tasks_screen/tasks_screen.dart';
+import 'package:my_fate/presentation/view_model/task_screen_model.dart';
 import 'package:typewritertext/typewritertext.dart';
 
 import '../../shared_widgets/components/task_type.dart';
@@ -27,6 +28,8 @@ class HomePage extends StatelessWidget {
       /// divided by two as width is divided also
       return (size.width / 2) - AppPadding.p16 - AppPadding.p8;
     }
+
+    Map leftAndDone = TasksScreenModel().tasksState();
 
     return SafeArea(
       child: Scaffold(
@@ -94,15 +97,25 @@ class HomePage extends StatelessWidget {
                                         category: AppStrings.personal))),
                             color: AppColors.yellow,
                             svgIcon: AppIcons.person,
-                            leftNum: 12,
-                            doneNum: 1),
+                            leftNum:
+                                leftAndDone[AppStrings.personal.toLowerCase()]
+                                        ["not done"] ??
+                                    0,
+                            doneNum:
+                                leftAndDone[AppStrings.personal.toLowerCase()]
+                                        ["done"] ??
+                                    0),
                         TaskTypeItem(
                           size: wrapItemsSize(),
                           name: AppStrings.work,
                           color: ColorRed(),
                           svgIcon: AppIcons.bag,
-                          leftNum: 12,
-                          doneNum: 1,
+                          leftNum: leftAndDone[AppStrings.work.toLowerCase()]
+                                  ["not done"] ??
+                              0,
+                          doneNum: leftAndDone[AppStrings.work.toLowerCase()]
+                                  ["done"] ??
+                              0,
                           onTap: () => Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -119,8 +132,14 @@ class HomePage extends StatelessWidget {
                                         category: AppStrings.health))),
                             color: ColorBlue(),
                             svgIcon: AppIcons.heart,
-                            leftNum: 12,
-                            doneNum: 0),
+                            leftNum:
+                                leftAndDone[AppStrings.health.toLowerCase()]
+                                        ["not done"] ??
+                                    0,
+                            doneNum:
+                                leftAndDone[AppStrings.health.toLowerCase()]
+                                        ["done"] ??
+                                    0),
                         InkWell(
                           highlightColor: Colors.transparent,
                           splashColor: AppColors.inactiveGrey,

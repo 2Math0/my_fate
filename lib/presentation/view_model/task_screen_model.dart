@@ -5,6 +5,7 @@ import 'package:my_fate/app/converter.dart';
 import 'package:my_fate/data/sorted_tasks.dart';
 import 'package:my_fate/data/tasks_categories.dart';
 import 'package:my_fate/presentation/resources/colors_manager.dart';
+import 'package:my_fate/presentation/resources/strings_manager.dart';
 import 'package:my_fate/presentation/resources/values_manager.dart';
 import 'package:my_fate/presentation/view/tasks_screen/components/time_line.dart';
 import 'package:my_fate/presentation/view_model/base.dart';
@@ -83,6 +84,21 @@ class TasksScreenModel extends BaseViewModel {
     for (int i = 1; i < 7 - dayNumber; i++) {
       weekDays.add(today.add(Duration(days: i)));
     }
+  }
+
+  Map tasksState() {
+    importDayTasks(DateTime.now());
+    Map dic = {
+      AppStrings.personal.toLowerCase(): {'done': 0, 'not done': 0},
+      AppStrings.work.toLowerCase(): {'done': 0, 'not done': 0},
+      AppStrings.health.toLowerCase(): {'done': 0, 'not done': 0},
+    };
+    for (TaskModel task in tasks) {
+      task.isDone!
+          ? dic[task.category]["done"] = dic[task.category]["done"] + 1
+          : dic[task.category]["not done"] = dic[task.category]["not done"] + 1;
+    }
+    return dic;
   }
 
   void selectNewDate(DateTime date) {
