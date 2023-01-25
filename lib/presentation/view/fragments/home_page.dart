@@ -1,12 +1,15 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:my_fate/data/name.dart';
 import 'package:my_fate/presentation/resources/assets_manager.dart';
 import 'package:my_fate/presentation/resources/colors_manager.dart';
 import 'package:my_fate/presentation/resources/strings_manager.dart';
 import 'package:my_fate/presentation/resources/text_styles_manager.dart';
 import 'package:my_fate/presentation/resources/values_manager.dart';
 import 'package:my_fate/presentation/view/tasks_screen/tasks_screen.dart';
+import 'package:typewritertext/typewritertext.dart';
 
 import '../../shared_widgets/components/task_type.dart';
 
@@ -40,7 +43,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: AppPadding.p16),
-                Text('${AppStrings.hi}, ${AppStrings.userName}! 👋',
+                Text('${AppStrings.hi}, $name! 👋',
                     style: Theme.of(context).textTheme.headline2),
               ],
             ),
@@ -52,21 +55,21 @@ class HomePage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // TypeWriterText(
-                  //     maintainSize: true,
-                  //     text: Text(
-                  //       "Welcome ${'🤝'.characters} to Home page ${'🏠'.characters}!,"
-                  //       "\nThis is where your tasks ${(('📝').characters)} are Categorized "
-                  //       "${'🗂'.characters}️.\nArrange your tasks,\nFinish ${'✔️'.characters} them "
-                  //       "\nand See ${'👀️'.characters} the results :::::::",
-                  //       softWrap: true,
-                  //       style:
-                  //           const AppTextStyles().captionLargeRegular.copyWith(
-                  //                 fontFamily: GoogleFonts.dmMono().fontFamily,
-                  //                 color: AppColors.kBlack,
-                  //               ),
-                  //     ),
-                  //     duration: const Duration(milliseconds: 60)),
+                  TypeWriterText(
+                      maintainSize: true,
+                      text: Text(
+                        "Welcome to Home page!,"
+                        "\nThis is where your tasks are Categorized"
+                        "\nArrange your tasks,\nFinish them "
+                        "\nand See the results",
+                        softWrap: true,
+                        style:
+                            const AppTextStyles().captionLargeRegular.copyWith(
+                                  fontFamily: GoogleFonts.dmMono().fontFamily,
+                                  color: AppColors.kBlack,
+                                ),
+                      ),
+                      duration: const Duration(milliseconds: 60)),
                   const SizedBox(height: AppMargin.m16),
                   Text(
                     AppStrings.tasks,
@@ -87,7 +90,7 @@ class HomePage extends StatelessWidget {
                             onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (builder) => TaskScreen(
+                                    builder: (builder) => const TaskScreen(
                                         category: AppStrings.personal))),
                             color: AppColors.yellow,
                             svgIcon: AppIcons.person,
@@ -103,8 +106,8 @@ class HomePage extends StatelessWidget {
                           onTap: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (builder) =>
-                                      TaskScreen(category: AppStrings.work))),
+                                  builder: (builder) => const TaskScreen(
+                                      category: AppStrings.work))),
                         ),
                         TaskTypeItem(
                             size: wrapItemsSize(),
@@ -112,7 +115,7 @@ class HomePage extends StatelessWidget {
                             onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (builder) => TaskScreen(
+                                    builder: (builder) => const TaskScreen(
                                         category: AppStrings.health))),
                             color: ColorBlue(),
                             svgIcon: AppIcons.heart,
