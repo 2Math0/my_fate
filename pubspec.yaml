@@ -42,6 +42,7 @@ dependencies:
   dotted_border: ^2.0.0+3
   timeline_tile: ^2.0.0
   intl: ^0.18.0
+  focused_menu: ^1.0.5
 
 dev_dependencies:
   flutter_test:

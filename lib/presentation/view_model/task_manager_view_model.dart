@@ -3,7 +3,7 @@ import 'package:my_fate/app/converter.dart';
 import 'package:my_fate/data/hours_manager.dart';
 import 'package:my_fate/data/model/task_model.dart';
 import 'package:my_fate/data/sorted_tasks.dart';
-import 'package:my_fate/presentation/view/fragments/home_page.dart';
+import 'package:my_fate/presentation/resources/utilities.dart';
 import 'package:my_fate/presentation/view_model/base.dart';
 
 class TaskManagerViewModel extends BaseViewModel {
@@ -72,7 +72,7 @@ class TaskManagerViewModel extends BaseViewModel {
       titleController.clear();
       descriptionController.clear();
     } else {
-      customSnackBar(
+      Utilities.customSnackBar(
           message: "Fill all Fields and Select an Available Hour",
           context: context);
     }

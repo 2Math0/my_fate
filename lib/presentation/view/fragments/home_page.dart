@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:my_fate/data/name.dart';
 import 'package:my_fate/presentation/resources/assets_manager.dart';
 import 'package:my_fate/presentation/resources/colors_manager.dart';
+import 'package:my_fate/presentation/resources/utilities.dart';
 import 'package:my_fate/presentation/resources/strings_manager.dart';
 import 'package:my_fate/presentation/resources/text_styles_manager.dart';
 import 'package:my_fate/presentation/resources/values_manager.dart';
@@ -144,7 +145,7 @@ class HomePage extends StatelessWidget {
                           highlightColor: Colors.transparent,
                           splashColor: AppColors.inactiveGrey,
                           radius: AppCircularRadius.cr66,
-                          onTap: () => customSnackBar(
+                          onTap: () => Utilities.customSnackBar(
                               message:
                                   "Adding Categories will be added in next update",
                               context: context),
@@ -180,14 +181,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-customSnackBar({required String message, required BuildContext context}) =>
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(message,
-          style: const AppTextStyles()
-              .captionLargeRegular
-              .copyWith(color: AppColors.kWhite)),
-      behavior: SnackBarBehavior.fixed,
-      elevation: 0,
-      backgroundColor: AppColors.kBlack,
-    ));

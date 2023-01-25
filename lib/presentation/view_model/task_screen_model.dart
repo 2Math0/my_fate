@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:my_fate/app/converter.dart';
+import 'package:my_fate/data/hours_manager.dart';
 import 'package:my_fate/data/sorted_tasks.dart';
 import 'package:my_fate/data/tasks_categories.dart';
 import 'package:my_fate/presentation/resources/colors_manager.dart';
@@ -139,9 +140,33 @@ class TasksScreenModel extends BaseViewModel {
                 title: widgetList[index][1].title!,
                 startTime: widgetList[index][1].startTime!,
                 hours: widgetList[index][1].hours!,
+                isDone: widgetList[index][1].isDone!,
                 categoryColor:
                     taskCategory[widgetList[index][1].category]!.light,
                 description: widgetList[index][1].description ?? '',
+                onDelete: () {
+                  leashHours(
+                      startTime: widgetList[index][1].startTime!,
+                      hours: widgetList[index][1].hours!,
+                      date: today);
+                  datesOfSortedTasks[converter.dateFormatDDMMYYYY(today)]!
+                      .removeAt(widgetList[index][2]);
+                  widgetList[index].removeAt(1);
+                },
+                onEdit: () {},
+                onDone: () {
+                  if (widgetList[index][1].isDone == false) {
+                    datesOfSortedTasks[converter.dateFormatDDMMYYYY(today)]![
+                            widgetList[index][2]]
+                        .isDone = true;
+                    widgetList[index][1].isDone = true;
+                  } else {
+                    datesOfSortedTasks[converter.dateFormatDDMMYYYY(today)]![
+                            widgetList[index][2]]
+                        .isDone = false;
+                    widgetList[index][1].isDone = false;
+                  }
+                },
               ),
             )
           ],
@@ -172,6 +197,19 @@ class TasksScreenModel extends BaseViewModel {
     }
   }
 
+  void leashHours(
+      {required String startTime, required int hours, required DateTime date}) {
+    List<String> bookedHours = [];
+    for (int i = converter.parsingHourToInt(startTime);
+        i < converter.parsingHourToInt(startTime) + hours;
+        i++) {
+      bookedHours.add(converter.intToTime(i));
+    }
+    for (var hour in bookedHours) {
+      hoursManager[hour]![converter.dateFormatDDMMYYYY(date)] = false;
+    }
+  }
+
   List listBuilder() {
     List list = [];
     for (String hour in dayHours) {
@@ -181,7 +219,7 @@ class TasksScreenModel extends BaseViewModel {
       }
       if (tasksIndex < tasks.length) {
         if (hour == tasks[tasksIndex].startTime) {
-          list.add([hour, tasks[tasksIndex]]);
+          list.add([hour, tasks[tasksIndex], tasksIndex]);
           jumpIndex = tasks[tasksIndex].hours! - 1;
           tasksIndex++;
         } else {
