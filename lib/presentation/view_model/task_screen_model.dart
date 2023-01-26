@@ -16,6 +16,7 @@ import '../resources/text_styles_manager.dart';
 import '../shared_widgets/components/task_card.dart';
 
 class TasksScreenModel extends BaseViewModel {
+  // ToDo: change isDone and onDelete fun in the same state
   List<TaskModel> tasks = [];
   List<DateTime> weekDays = [];
   List widgetList = [];
@@ -133,9 +134,6 @@ class TasksScreenModel extends BaseViewModel {
                 style: const AppTextStyles().bodyTextNormalRegular),
             const SizedBox(width: AppMargin.m16),
             Expanded(
-              // isDone
-              // hours number
-              //
               child: TaskCard(
                 title: widgetList[index][1].title!,
                 startTime: widgetList[index][1].startTime!,

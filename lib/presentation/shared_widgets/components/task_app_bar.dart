@@ -33,6 +33,9 @@ class TaskAppBar extends StatelessWidget {
         pinned: true,
         floating: true,
         expandedHeight: preferredSize.height,
+        // Material 3 Changes to make
+        surfaceTintColor: bgColor == AppColors.kWhite ? AppColors.kWhite : null,
+        scrolledUnderElevation: 0,
         leading: isNested
             ? IconButton(
                 onPressed: () => Navigator.pop(context),

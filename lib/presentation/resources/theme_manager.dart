@@ -9,6 +9,7 @@ ThemeData getApplicationTheme(BuildContext context) {
       GoogleFonts.kanit().fontFamily; // secularOne, pay-toneOne are great fonts
 
   return ThemeData(
+    useMaterial3: true,
     // main colors of the app
     // primaryColor: AppColors.primaryBlue,
     // disabledColor: AppColors.neutralGrey,
@@ -69,31 +70,37 @@ ThemeData getApplicationTheme(BuildContext context) {
 
     // default font family
     fontFamily: familyFont,
-
     // Text theme
     textTheme: TextTheme(
-        headline1:
-            const AppTextStyles().headingH1.copyWith(color: AppColors.kBlack),
-        headline2:
-            const AppTextStyles().headingH2.copyWith(color: AppColors.kBlack),
-        headline3:
-            const AppTextStyles().headingH3.copyWith(color: AppColors.kBlack),
-        headline4:
-            const AppTextStyles().headingH4.copyWith(color: AppColors.kBlack),
-        subtitle1:
-            const AppTextStyles().linkSmall.copyWith(color: AppColors.kBlack),
-        subtitle2:
-            const AppTextStyles().linkSmall.copyWith(color: AppColors.kBlack),
-        bodyText2: const AppTextStyles()
-            .bodyTextMediumRegular
-            .copyWith(color: AppColors.kBlack),
-        // it affects the style of calender number
-        caption: const AppTextStyles()
-            .captionNormalRegular
-            .copyWith(fontWeight: FontWeight.w900, color: AppColors.kBlack),
-        bodyText1: const AppTextStyles()
-            .bodyTextNormalRegular
-            .copyWith(color: AppColors.kBlack)),
+      displayLarge:
+          const AppTextStyles().headingH1.copyWith(color: AppColors.kBlack),
+      displayMedium:
+          const AppTextStyles().headingH2.copyWith(color: AppColors.kBlack),
+      displaySmall:
+          const AppTextStyles().headingH3.copyWith(color: AppColors.kBlack),
+      headlineMedium:
+          const AppTextStyles().headingH4.copyWith(color: AppColors.kBlack),
+      titleMedium:
+          const AppTextStyles().linkSmall.copyWith(color: AppColors.kBlack),
+      titleSmall:
+          const AppTextStyles().linkSmall.copyWith(color: AppColors.kBlack),
+      bodyMedium: const AppTextStyles()
+          .bodyTextMediumRegular
+          .copyWith(color: AppColors.kBlack),
+      // it affects the style of calender number
+      bodySmall: const AppTextStyles()
+          .captionNormalRegular
+          .copyWith(fontWeight: FontWeight.w900, color: AppColors.kBlack),
+      bodyLarge: const AppTextStyles()
+          .bodyTextNormalRegular
+          .copyWith(color: AppColors.kBlack),
+    ),
+
+    // change text Selection to change the Material 3 Defaults of purple color
+    textSelectionTheme: TextSelectionThemeData(
+        cursorColor: AppColors.primaryBlue,
+        selectionHandleColor: AppColors.primaryBlue,
+        selectionColor: AppColors.blue.dark),
     // input decoration theme (text form field)
 
     // inputDecorationTheme: InputDecorationTheme(

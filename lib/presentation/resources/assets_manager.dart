@@ -6,7 +6,7 @@ class AppIcons {
   // Navigator Icons
   static const String home = '$appIconPath/home.svg';
   static const String plus = '$appIconPath/plus.svg';
-  static const String person = '$appIconPath/person_1.svg';
+  static const String person = '$appIconPath/person.svg';
 
   // Home Icons
   static const String bag = '$appIconPath/bag.svg';
