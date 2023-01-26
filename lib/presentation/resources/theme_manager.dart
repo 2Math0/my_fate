@@ -10,6 +10,7 @@ ThemeData getApplicationTheme(BuildContext context) {
 
   return ThemeData(
     useMaterial3: true,
+    canvasColor: AppColors.whiteGrey,
     // main colors of the app
     // primaryColor: AppColors.primaryBlue,
     // disabledColor: AppColors.neutralGrey,

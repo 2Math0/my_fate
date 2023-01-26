@@ -58,6 +58,7 @@ class _NavBarScreenState extends State<NavBarScreen> {
 
   Widget getMarketUI(fragment) {
     return Scaffold(
+      backgroundColor: AppColors.kWhite,
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: fragment,

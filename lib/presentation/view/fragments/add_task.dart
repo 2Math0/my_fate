@@ -72,6 +72,10 @@ class _AddTaskPageState extends State<AddTaskPage> {
                           fillColor: taskCategory[_viewModel.category] == null
                               ? Colors.transparent
                               : taskCategory[_viewModel.category]!.light,
+                          dropDownColor:
+                              taskCategory[_viewModel.category] == null
+                                  ? null
+                                  : taskCategory[_viewModel.category]!.light,
                           onChanged: (val) =>
                               setState(() => _viewModel.category = val!),
                           validator: RequiredValidator(),
@@ -112,6 +116,10 @@ class _AddTaskPageState extends State<AddTaskPage> {
                             hintText: AppStrings.pickAnHour,
                             validator: RequiredValidator(),
                             items: _viewModel.availableHours,
+                            dropDownColor:
+                                taskCategory[_viewModel.category] == null
+                                    ? null
+                                    : taskCategory[_viewModel.category]!.light,
                             onChanged: (val) {
                               _viewModel.startTime = val!;
                               setState(() => _viewModel
@@ -122,6 +130,10 @@ class _AddTaskPageState extends State<AddTaskPage> {
                         padding: const EdgeInsets.all(AppPadding.p16),
                         child: CustomDropDown(
                             hintText: AppStrings.numberOfHours,
+                            dropDownColor:
+                                taskCategory[_viewModel.category] == null
+                                    ? null
+                                    : taskCategory[_viewModel.category]!.light,
                             items: List<int>.generate(
                                 _viewModel.maxHours, (i) => i + 1),
                             onChanged: (val) {

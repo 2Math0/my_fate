@@ -10,6 +10,7 @@ class CustomDropDown extends StatelessWidget {
   final Function(dynamic) onChanged;
   final Color? fillColor;
   final BaseValidator? validator;
+  final Color? dropDownColor;
   final String hintText;
   final VoidCallback? onTap;
   const CustomDropDown(
@@ -19,7 +20,8 @@ class CustomDropDown extends StatelessWidget {
       this.fillColor = AppColors.kWhite,
       this.validator,
       required this.hintText,
-      this.onTap})
+      this.onTap,
+      this.dropDownColor})
       : super(key: key);
 
   @override
@@ -35,6 +37,7 @@ class CustomDropDown extends StatelessWidget {
         ButtonTheme(
           alignedDropdown: true,
           child: DropdownButtonFormField(
+              dropdownColor: dropDownColor,
               onTap: onTap,
               validator: (val) {
                 if (validator == null) {
