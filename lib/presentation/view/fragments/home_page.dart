@@ -22,24 +22,24 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    double wrapItemsSize() {
-      /// Every Item get half of the screen
-      /// app padding horizontally on parent by 16
-      /// app padding in space between items by 16
-      /// divided by two as width is divided also
-      return (size.width / 2) - AppPadding.p16 - AppPadding.p8;
-    }
+    double wrapItemsSize() =>
+
+        /// Every Item get half of the screen
+        /// app padding horizontally on parent by 16
+        /// app padding in space between items by 16
+        /// divided by two as width is divided also
+        (size.width / 2) - AppPadding.p16 - AppPadding.p8;
 
     Map leftAndDone = TasksScreenModel().tasksState();
 
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(
-            vertical: AppPadding.p16, horizontal: AppPadding.p16),
+            vertical: AppPadding.p16, horizontal: AppPadding.p20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: AppMargin.m16),
+            const SizedBox(height: AppMargin.m24),
             Row(children: [
               CircleAvatar(
                   backgroundColor: AppColors.kBlack,
@@ -71,7 +71,7 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: AppMargin.m16),
             Text(
               AppStrings.tasks,
-              style: Theme.of(context).textTheme.headline3,
+              style: Theme.of(context).textTheme.displaySmall,
             ),
             const SizedBox(height: AppMargin.m16),
             IntrinsicWidth(

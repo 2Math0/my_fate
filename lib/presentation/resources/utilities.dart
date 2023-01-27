@@ -5,12 +5,14 @@ import 'package:my_fate/presentation/resources/text_styles_manager.dart';
 class Utilities {
   const Utilities();
 
-  double getWidth(BuildContext context) => MediaQuery.of(context).size.width;
+  static double getWidth(BuildContext context) =>
+      MediaQuery.of(context).size.width;
 
-  double getHeight(BuildContext context) => MediaQuery.of(context).size.height;
+  static double getHeight(BuildContext context) =>
+      MediaQuery.of(context).size.height;
 
-  double height50(BuildContext context) => getHeight(context) * 0.5;
-  double width50(BuildContext context) => getWidth(context) * 0.5;
+  static double height50(BuildContext context) => getHeight(context) * 0.5;
+  static double width50(BuildContext context) => getWidth(context) * 0.5;
 
   static void customSnackBar(
       {required BuildContext context, required String message}) {

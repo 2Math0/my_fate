@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_fate/app/converter.dart';
 import 'package:my_fate/presentation/resources/colors_manager.dart';
 import 'package:my_fate/presentation/resources/text_styles_manager.dart';
+import 'package:my_fate/presentation/resources/utilities.dart';
 import 'package:my_fate/presentation/resources/values_manager.dart';
 
 class DatePicker extends StatefulWidget {
@@ -58,6 +59,8 @@ class _DatePickerState extends State<DatePicker> {
               selected = i;
             }),
             child: Container(
+              width: (Utilities.getWidth(context) / weekList.length) -
+                  AppPadding.p4,
               padding: const EdgeInsets.all(AppPadding.p8),
               decoration: BoxDecoration(
                 color: selected == i ? AppColors.kBlack.withOpacity(0.1) : null,

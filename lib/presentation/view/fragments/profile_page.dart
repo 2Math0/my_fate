@@ -25,7 +25,7 @@ class ProfilePage extends StatelessWidget {
                 color: AppColors.kBlack, width: AppSize.s60),
             const SizedBox(height: AppSize.s38),
             SizedBox(
-              width: const Utilities().width50(context),
+              width: Utilities.width50(context),
               child: TextFormField(
                 textAlign: TextAlign.center,
                 controller: controller,

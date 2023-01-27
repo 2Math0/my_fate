@@ -32,6 +32,7 @@ class TaskAppBar extends StatelessWidget {
         snap: true,
         pinned: true,
         floating: true,
+        toolbarHeight: AppSize.s60,
         expandedHeight: preferredSize.height,
         // Material 3 Changes to make
         surfaceTintColor: bgColor == AppColors.kWhite ? AppColors.kWhite : null,
